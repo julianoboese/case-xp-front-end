@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
-import { CssBaseline, Grid, Container, Box, Paper, Link, List, Toolbar, Drawer, Typography, Divider, IconButton, Badge } from '@mui/material';
+import { CssBaseline, Grid, Container, Box, Paper, Link, List, Toolbar, Drawer, Typography, Divider,
+  IconButton, Badge } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
@@ -77,7 +78,7 @@ const LeftDrawer = styled(MuiDrawer, {
 }));
 
 function DashboardContent() {
-  const { isActionOpen, toggleAction } = useContext(AppContext);
+  const { isActionOpen, setIsActionOpen } = useContext(AppContext);
 
   const [isMenuOpen, setIsMenuOpen] = useState(true);
   const toggleMenu = () => {
@@ -139,7 +140,7 @@ function DashboardContent() {
           <ListItems />
         </List>
       </LeftDrawer>
-      <Drawer anchor="right" open={isActionOpen} onClose={toggleAction(false)}>
+      <Drawer anchor="right" open={isActionOpen} onClose={() => setIsActionOpen(false)}>
         {/* Tarefas de conta e investimento */}
         <Box
           sx={{ width: 400 }}

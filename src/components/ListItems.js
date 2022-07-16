@@ -10,7 +10,7 @@ import LayersIcon from '@mui/icons-material/Layers';
 import AppContext from '../context/AppContext';
 
 export default function ListItems() {
-  const { toggleAction } = useContext(AppContext);
+  const { setIsActionOpen } = useContext(AppContext);
 
   return (
     <>
@@ -20,7 +20,7 @@ export default function ListItems() {
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
       </ListItemButton>
-      <ListItemButton onClick={toggleAction(true)}>
+      <ListItemButton onClick={() => setIsActionOpen(true)}>
         <ListItemIcon>
           <ShoppingCartIcon />
         </ListItemIcon>
