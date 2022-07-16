@@ -3,6 +3,7 @@
     "login",
     "register",
     "context",
-    "dash"
+    "dash",
+    "account"
   ]
 }
