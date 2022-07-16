@@ -2,6 +2,7 @@
   "conventionalCommits.scopes": [
     "login",
     "register",
-    "context"
+    "context",
+    "dash"
   ]
 }

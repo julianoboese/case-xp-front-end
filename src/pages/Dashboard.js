@@ -1,26 +1,16 @@
-import * as React from 'react';
+import React, { useContext, useState } from 'react';
+import { CssBaseline, Grid, Container, Box, Paper, Link, List, Toolbar, Drawer, Typography, Divider, IconButton, Badge } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
-import Box from '@mui/material/Box';
 import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from '../components/listItems';
 import Chart from '../components/Chart';
 import Deposits from '../components/Deposits';
 import Orders from '../components/Orders';
+import ListItems from '../components/ListItems';
+import AppContext from '../context/AppContext';
 
 function Copyright(props) {
   return (
@@ -60,7 +50,7 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const Drawer = styled(MuiDrawer, {
+const LeftDrawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
   '& .MuiDrawer-paper': {
@@ -87,15 +77,17 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 function DashboardContent() {
-  const [open, setOpen] = React.useState(true);
-  const toggleDrawer = () => {
-    setOpen(!open);
+  const { isActionOpen, toggleAction } = useContext(AppContext);
+
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="absolute" open={open}>
+      <AppBar position="absolute" open={isMenuOpen}>
         <Toolbar
           sx={{
             pr: '24px', // keep right padding when drawer closed
@@ -105,10 +97,10 @@ function DashboardContent() {
             edge="start"
             color="inherit"
             aria-label="open drawer"
-            onClick={toggleDrawer}
+            onClick={toggleMenu}
             sx={{
               marginRight: '36px',
-              ...(open && { display: 'none' }),
+              ...(isMenuOpen && { display: 'none' }),
             }}
           >
             <MenuIcon />
@@ -129,7 +121,7 @@ function DashboardContent() {
           </IconButton>
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open}>
+      <LeftDrawer variant="permanent" open={isMenuOpen}>
         <Toolbar
           sx={{
             display: 'flex',
@@ -138,16 +130,23 @@ function DashboardContent() {
             px: [1],
           }}
         >
-          <IconButton onClick={toggleDrawer}>
+          <IconButton onClick={toggleMenu}>
             <ChevronLeftIcon />
           </IconButton>
         </Toolbar>
         <Divider />
         <List component="nav">
-          {mainListItems}
-          <Divider sx={{ my: 1 }} />
-          {secondaryListItems}
+          <ListItems />
         </List>
+      </LeftDrawer>
+      <Drawer anchor="right" open={isActionOpen} onClose={toggleAction(false)}>
+        {/* Tarefas de conta e investimento */}
+        <Box
+          sx={{ width: 400 }}
+          role="presentation"
+          onClick={toggleAction(false)}
+          onKeyDown={toggleAction(false)}
+        />
       </Drawer>
       <Box
         component="main"
