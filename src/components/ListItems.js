@@ -8,9 +8,16 @@ import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AppContext from '../context/AppContext';
+import { getBalance } from '../services/account';
 
 export default function ListItems() {
-  const { setIsActionOpen } = useContext(AppContext);
+  const { setIsActionOpen, setBalance } = useContext(AppContext);
+
+  const openAccount = async () => {
+    setIsActionOpen(true);
+    const { balance } = await getBalance();
+    setBalance(balance);
+  };
 
   return (
     <>
@@ -24,13 +31,13 @@ export default function ListItems() {
         <ListItemIcon>
           <ShoppingCartIcon />
         </ListItemIcon>
-        <ListItemText primary="Orders" />
+        <ListItemText primary="Investir" />
       </ListItemButton>
-      <ListItemButton>
+      <ListItemButton onClick={openAccount}>
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>
-        <ListItemText primary="Customers" />
+        <ListItemText primary="Conta digital" />
       </ListItemButton>
       <ListItemButton>
         <ListItemIcon>

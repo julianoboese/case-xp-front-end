@@ -12,6 +12,7 @@ import Deposits from '../components/Deposits';
 import Orders from '../components/Orders';
 import ListItems from '../components/ListItems';
 import AppContext from '../context/AppContext';
+import Account from '../components/Account';
 
 function Copyright(props) {
   return (
@@ -144,10 +145,10 @@ function DashboardContent() {
         {/* Tarefas de conta e investimento */}
         <Box
           sx={{ width: 400 }}
-          role="presentation"
-          onClick={toggleAction(false)}
-          onKeyDown={toggleAction(false)}
-        />
+        >
+          <Toolbar />
+          <Account />
+        </Box>
       </Drawer>
       <Box
         component="main"
