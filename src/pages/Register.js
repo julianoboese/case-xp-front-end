@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -9,7 +9,10 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { LoadingButton } from '@mui/lab';
+import { useHistory } from 'react-router-dom';
 import logoXp from '../assets/logo-xp.png';
+import register from '../services/register';
 
 function Copyright(props) {
   return (
@@ -30,13 +33,24 @@ function Copyright(props) {
 }
 
 export default function Register() {
-  const handleSubmit = (event) => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const history = useHistory();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    setIsLoading(true);
+    const { token, message } = await register({ firstName, lastName, email, password });
+    if (token) {
+      sessionStorage.setItem('token', token);
+      return history.push('/dashboard');
+    }
+    setIsLoading(false);
+    return alert(message);
   };
 
   return (
@@ -73,6 +87,7 @@ export default function Register() {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                onChange={(event) => setFirstName(event.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -83,6 +98,7 @@ export default function Register() {
                 label="Last Name"
                 name="lastName"
                 autoComplete="family-name"
+                onChange={(event) => setLastName(event.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -93,6 +109,7 @@ export default function Register() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onChange={(event) => setEmail(event.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -104,6 +121,7 @@ export default function Register() {
                 type="password"
                 id="password"
                 autoComplete="new-password"
+                onChange={(event) => setPassword(event.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -113,14 +131,25 @@ export default function Register() {
               />
             </Grid>
           </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign Up
-          </Button>
+          {isLoading ? (
+            <LoadingButton
+              loading
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Submit
+            </LoadingButton>
+          ) : (
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign In
+            </Button>
+          )}
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="#" variant="body2">
