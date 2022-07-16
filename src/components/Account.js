@@ -1,24 +1,34 @@
 import { LoadingButton } from '@mui/lab';
 import { Box, Button, Paper, TextField, Typography } from '@mui/material';
 import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import { deposit, withdraw } from '../services/account';
 
 export default function Account() {
-  const { setIsActionOpen, balance } = useContext(AppContext);
+  const { setIsActionOpen, balance, setBalance } = useContext(AppContext);
 
   const [amount, setAmount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+
+  const history = useHistory();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
 
+    let response;
     if (event.target.id === 'deposit') {
-      await deposit({ amount: Number(amount) });
+      response = await deposit({ amount: Number(amount) });
     } else {
-      await withdraw({ amount: Number(amount) });
+      response = await withdraw({ amount: Number(amount) });
     }
+
+    if (response.status === 401) {
+      history.push('/');
+    }
+
+    setBalance(response.balance);
 
     setIsLoading(false);
     setIsActionOpen(false);
@@ -45,7 +55,7 @@ export default function Account() {
         }}
       >
         <Typography>Saldo em conta:</Typography>
-        <Typography>R$ {balance}</Typography>
+        <Typography color='primary' sx={{ fontWeight: 'bold' }}>R$ {balance}</Typography>
       </Box>
       <TextField
         margin="normal"

@@ -7,15 +7,23 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
+import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import { getBalance } from '../services/account';
 
 export default function ListItems() {
   const { setIsActionOpen, setBalance } = useContext(AppContext);
 
+  const history = useHistory();
+
   const openAccount = async () => {
     setIsActionOpen(true);
-    const { balance } = await getBalance();
+    const { balance, error } = await getBalance();
+
+    if (error?.status === 401) {
+      history.push('/');
+    }
+
     setBalance(balance);
   };
 

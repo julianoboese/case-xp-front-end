@@ -8,6 +8,8 @@ export const getBalance = async () => {
     },
   });
 
+  if (response.status >= 400) return { error: { status: response.status } };
+
   const responseJson = await response.json();
   return responseJson;
 };
@@ -26,6 +28,8 @@ export const deposit = async (amount) => {
     },
   );
 
+  if (response.status >= 400) return { error: { status: response.status } };
+
   const responseJson = await response.json();
   return responseJson;
 };
@@ -43,6 +47,8 @@ export const withdraw = async (amount) => {
       body: JSON.stringify(amount),
     },
   );
+
+  if (response.status >= 400) return { error: { status: response.status } };
 
   const responseJson = await response.json();
   return responseJson;
