@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { CssBaseline, Grid, Container, Box, Paper, Link, List, Toolbar, Drawer, Typography, Divider,
-  IconButton, CircularProgress } from '@mui/material';
+  IconButton, CircularProgress, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
@@ -109,6 +109,11 @@ function DashboardContent() {
     setIsLoading(false);
   }, []);
 
+  const handleLogout = () => {
+    sessionStorage.removeItem('token');
+    history.push('/');
+  };
+
   return (
     <Box sx={{ display: 'flex' }}>
     {isLoading
@@ -155,9 +160,18 @@ function DashboardContent() {
                   alt="The house from the offer."
                   src={logoXp}
                 />
-                <Typography>
-                  {`${user.firstName} ${user.lastName}`}
-                </Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: '30px' }}>
+                  <Typography>
+                    {`${user.firstName} ${user.lastName}`}
+                  </Typography>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    onClick={handleLogout}
+                  >
+                    Sair
+                  </Button>
+                </Box>
               </Box>
             </Toolbar>
           </AppBar>
