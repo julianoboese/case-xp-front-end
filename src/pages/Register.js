@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -13,6 +13,7 @@ import { LoadingButton } from '@mui/lab';
 import { useHistory } from 'react-router-dom';
 import logoXp from '../assets/logo-xp.png';
 import register from '../services/register';
+import getUser from '../services/user';
 
 function Copyright(props) {
   return (
@@ -40,6 +41,18 @@ export default function Register() {
   const [isLoading, setIsLoading] = useState(false);
 
   const history = useHistory();
+
+  useEffect(() => {
+    async function fetchUser() {
+      const { error } = await getUser();
+
+      if (!error) {
+        history.push('/dashboard');
+      }
+    }
+
+    fetchUser();
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
