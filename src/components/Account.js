@@ -52,10 +52,11 @@ export default function Account() {
           display: 'flex',
           height: 240,
           justifyContent: 'space-between',
+          alignItems: 'center',
         }}
       >
         <Typography>Saldo em conta:</Typography>
-        <Typography color='primary' sx={{ fontWeight: 'bold' }}>R$ {balance}</Typography>
+        <Typography variant="h7" color='primary' sx={{ fontWeight: 'bold' }}>R$ {balance}</Typography>
       </Box>
       <TextField
         margin="normal"
@@ -65,7 +66,6 @@ export default function Account() {
         label="Digite o valor"
         name="account"
         autoComplete="account"
-        autoFocus
         onChange={(event) => setAmount(event.target.value)}
       />
 

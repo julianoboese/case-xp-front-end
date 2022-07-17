@@ -7,7 +7,7 @@ import MuiAppBar from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { useHistory } from 'react-router-dom';
-import Chart from '../components/Chart';
+import Assets from '../components/Assets';
 import Deposits from '../components/Deposits';
 import Orders from '../components/Orders';
 import ListItems from '../components/ListItems';
@@ -224,7 +224,7 @@ function DashboardContent() {
                       height: 240,
                     }}
                   >
-                    <Chart />
+                    <Assets />
                   </Paper>
                 </Grid>
                 {/* Recent Deposits */}
