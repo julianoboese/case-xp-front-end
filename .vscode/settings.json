@@ -4,6 +4,7 @@
     "register",
     "context",
     "dash",
-    "account"
+    "account",
+    "user"
   ]
 }
