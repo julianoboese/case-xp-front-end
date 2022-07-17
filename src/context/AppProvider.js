@@ -5,6 +5,8 @@ import AppContext from './AppContext';
 function AppProvider({ children }) {
   const [isActionOpen, setIsActionOpen] = useState(false);
 
+  const [user, setUser] = useState({ firstName: '', lastName: '' });
+
   const [balance, setBalance] = useState(0);
 
   return (
@@ -12,6 +14,8 @@ function AppProvider({ children }) {
       value={{
         isActionOpen,
         setIsActionOpen,
+        user,
+        setUser,
         balance,
         setBalance,
       }}
