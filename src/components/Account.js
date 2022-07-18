@@ -28,7 +28,7 @@ export default function Account() {
       history.push('/');
     }
 
-    setBalance(response.balance);
+    setBalance(response.balance.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' }));
 
     setIsLoading(false);
     setIsActionOpen(false);
@@ -56,7 +56,7 @@ export default function Account() {
         }}
       >
         <Typography>Saldo em conta:</Typography>
-        <Typography variant="h7" color='primary' sx={{ fontWeight: 'bold' }}>R$ {balance}</Typography>
+        <Typography variant="h7" color='primary' sx={{ fontWeight: 'bold' }}>{balance}</Typography>
       </Box>
       <TextField
         margin="normal"

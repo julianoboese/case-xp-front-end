@@ -25,11 +25,11 @@ export default function Assets() {
     setIsLoading(false);
   }, []);
 
-  const formatPrice = (price) => {
-    const splitPrice = price.toString().split('.');
-    if (!splitPrice[1]) return `${splitPrice[0]},00`;
-    if (splitPrice[1].length === 1) return `${splitPrice.join(',')}0`;
-    return splitPrice.join(',');
+  const formatChange = (change) => {
+    const splitChange = change.toString().split('.');
+    if (!splitChange[1]) return `${splitChange[0]},00%`;
+    if (splitChange[1].length === 1) return `${splitChange.join(',')}0%`;
+    return `${splitChange.join(',')}%`;
   };
 
   return (
@@ -89,7 +89,7 @@ export default function Assets() {
           </Card>
           {assets.map((asset) => (
             <Card
-              key={asset.id}
+              key={asset.assetId}
               sx={{
                 bgcolor: (theme) => theme.palette.grey[900],
                 m: 1,
@@ -112,14 +112,14 @@ export default function Assets() {
                   {asset.quantity}
                 </Typography>
                 <Typography variant="h6" display="inline-block" width="30%">
-                  {`R$ ${formatPrice(asset.price)}`}
+                  {asset.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })}
                 </Typography>
                 <Typography
                   color={asset.change >= 0 ? '#66bb6a' : 'error'}
                   display="inline-block"
                   width="20%"
                 >
-                  {`${formatPrice(asset.change)}%`}
+                  {formatChange(asset.change)}
                 </Typography>
               </CardContent>
               <CardActions sx={{ ml: 2 }}>
