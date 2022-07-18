@@ -15,7 +15,10 @@ import { formatChange, formatMoney } from '../utils/format';
 import Title from './Title';
 
 export default function Assets() {
-  const { setIsActionOpen, currentAsset, setCurrentAsset } = useContext(AppContext);
+  const {
+    setIsActionOpen, currentAsset, setCurrentAsset,
+    setCurrentOperation,
+  } = useContext(AppContext);
 
   const [assets, setAssets] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -34,6 +37,7 @@ export default function Assets() {
   }, [currentAsset]);
 
   const handleGetAsset = async (assetId) => {
+    setCurrentOperation('order');
     setIsActionOpen(true);
     const response = await getAsset(assetId);
 
@@ -70,7 +74,7 @@ export default function Assets() {
               flexGrow: 1,
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'center',
+              justifyContent: 'flex-start',
               alignItems: 'center',
             }}
           >

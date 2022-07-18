@@ -7,7 +7,7 @@ import { deposit, withdraw } from '../services/account';
 import { formatMoney } from '../utils/format';
 
 export default function Account() {
-  const { setIsActionOpen, balance, setBalance } = useContext(AppContext);
+  const { setIsActionOpen, balance, setBalance, setCurrentOperation } = useContext(AppContext);
 
   const [amount, setAmount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -33,6 +33,7 @@ export default function Account() {
 
     setIsLoading(false);
     setIsActionOpen(false);
+    setCurrentOperation('');
   };
 
   return (

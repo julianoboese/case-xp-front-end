@@ -15,6 +15,7 @@ import AppContext from '../context/AppContext';
 import Account from '../components/Account';
 import getUser from '../services/user';
 import logoXp from '../assets/logo-xp.png';
+import Order from '../components/Order';
 
 function Copyright(props) {
   return (
@@ -81,7 +82,7 @@ const LeftDrawer = styled(MuiDrawer, {
 }));
 
 function DashboardContent() {
-  const { isActionOpen, setIsActionOpen, user, setUser } = useContext(AppContext);
+  const { isActionOpen, setIsActionOpen, user, setUser, currentOperation } = useContext(AppContext);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -196,10 +197,11 @@ function DashboardContent() {
           <Drawer anchor="right" open={isActionOpen} onClose={() => setIsActionOpen(false)}>
             {/* Tarefas de conta e investimento */}
             <Box
-              sx={{ width: 400 }}
+              sx={{ width: currentOperation === 'order' ? 500 : 400 }}
             >
               <Toolbar />
-              <Account />
+              {currentOperation === 'account' && <Account />}
+              {currentOperation === 'order' && <Order />}
             </Box>
           </Drawer>
           <Box
@@ -214,7 +216,7 @@ function DashboardContent() {
             <Toolbar />
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
               <Grid container spacing={3}>
-                {/* Chart */}
+                {/* Assets */}
                 <Grid item xs={12} md={8} lg={9}>
                   <Paper
                     sx={{

@@ -10,13 +10,15 @@ import LayersIcon from '@mui/icons-material/Layers';
 import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import { getBalance } from '../services/account';
+import { formatMoney } from '../utils/format';
 
 export default function ListItems() {
-  const { setIsActionOpen, setBalance } = useContext(AppContext);
+  const { setIsActionOpen, setBalance, setCurrentOperation } = useContext(AppContext);
 
   const history = useHistory();
 
   const openAccount = async () => {
+    setCurrentOperation('account');
     setIsActionOpen(true);
     const { balance, error } = await getBalance();
 
@@ -24,17 +26,11 @@ export default function ListItems() {
       history.push('/');
     }
 
-    setBalance(balance);
+    setBalance(formatMoney(balance));
   };
 
   return (
     <>
-      <ListItemButton>
-        <ListItemIcon>
-          <DashboardIcon />
-        </ListItemIcon>
-        <ListItemText primary="Dashboard" />
-      </ListItemButton>
       <ListItemButton onClick={() => setIsActionOpen(true)}>
         <ListItemIcon>
           <ShoppingCartIcon />
