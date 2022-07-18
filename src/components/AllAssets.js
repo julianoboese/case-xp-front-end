@@ -31,6 +31,7 @@ export default function AllAssets() {
     async function fetchAllAssets() {
       const assets = await getAllAssets();
 
+      setAllAssets(assets.sort(() => Math.random() - 0.5));
       setAssetsFiltered(assets);
     }
 
@@ -81,7 +82,7 @@ export default function AllAssets() {
       ) : (
         <>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-          <Title>Ativos disponíveis</Title>
+            <Title>Ativos disponíveis</Title>
             <TextField
               size="small"
               margin="normal"
@@ -135,7 +136,7 @@ export default function AllAssets() {
                 </CardActions>
               </Card>
               </Grid>
-            ))}
+              ))}
             </Grid>
           </Box>
         </>
