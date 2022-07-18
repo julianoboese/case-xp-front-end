@@ -50,7 +50,7 @@ export default function Account() {
       <Box
         sx={{
           my: 2,
-          px: 2,
+          px: 1,
           display: 'flex',
           height: 240,
           justifyContent: 'space-between',
@@ -58,7 +58,7 @@ export default function Account() {
         }}
       >
         <Typography>Saldo em conta:</Typography>
-        <Typography variant="h7" color='primary' sx={{ fontWeight: 'bold' }}>{balance}</Typography>
+        <Typography variant="h5" color='primary' sx={{ fontWeight: 'bold' }}>{balance}</Typography>
       </Box>
       <TextField
         margin="normal"

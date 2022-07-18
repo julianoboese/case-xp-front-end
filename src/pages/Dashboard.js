@@ -208,7 +208,7 @@ function DashboardContent() {
             onClose={() => setIsActionOpen(false)}
           >
             {/* Tarefas de conta e investimento */}
-            <Box sx={{ width: currentOperation === 'order' ? 500 : 400 }}>
+            <Box sx={{ width: currentOperation === 'order' ? 500 : 420 }}>
               <Toolbar />
               {currentOperation === 'account' && <Account />}
               {currentOperation === 'order' && <Order />}
