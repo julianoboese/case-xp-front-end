@@ -13,6 +13,7 @@ import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import { buyAsset, sellAsset } from '../services/order';
 import { formatChange, formatMoney } from '../utils/format';
+import Title from './Title';
 
 export default function Order() {
   const {
@@ -55,9 +56,10 @@ export default function Order() {
         p: 2,
         display: 'flex',
         flexDirection: 'column',
-        height: 290,
+        height: 310,
       }}
     >
+      <Title>Ordem a mercado</Title>
       <Card
         sx={{
           bgcolor: (theme) => theme.palette.grey[700],
