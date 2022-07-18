@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory, Link as RouterLink } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -117,11 +117,9 @@ export default function Login() {
           )}
           <Grid container justifyContent='flex-end'>
             <Grid item>
-              <RouterLink to='/register'>
-                <Link variant="body2">
-                  Não tem uma conta? Cadastre-se.
-                </Link>
-              </RouterLink>
+              <Link href='/register' variant="body2">
+                Não tem uma conta? Cadastre-se.
+              </Link>
             </Grid>
           </Grid>
         </Box>
