@@ -116,7 +116,7 @@ export default function AllAssets() {
                   width: '100%',
                 }}
               >
-                <CardContent sx={{ py: 1, flexGrow: 1 }}>
+                <CardContent sx={{ py: 1, flexGrow: 1, maxHeight: '60px', overflow: 'hidden' }}>
                   <Typography
                     variant="h6"
                     color="primary"
@@ -124,7 +124,7 @@ export default function AllAssets() {
                   >
                     {asset.ticker}
                   </Typography>
-                  <Typography variant="h6" display="block">
+                  <Typography variant="h6" display="inline-block" noWrap sx={{ width: '100%' }}>
                     {asset.name.slice(0, 19)}
                   </Typography>
                 </CardContent>
