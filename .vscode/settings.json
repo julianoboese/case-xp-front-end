@@ -6,6 +6,7 @@
     "dash",
     "account",
     "user",
-    "assets"
+    "assets",
+    "utils"
   ]
 }

@@ -1,4 +1,4 @@
-export const formatMoney = (price) => price.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' });
+export const formatMoney = (price) => Number(price).toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' });
 
 export const formatChange = (change) => {
   const splitChange = change.toString().split('.');
