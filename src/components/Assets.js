@@ -9,6 +9,8 @@ import {
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { getAssets } from '../services/assets';
+import { formatChange, formatMoney } from '../utils/format';
+import Title from './Title';
 
 export default function Assets() {
   const [assets, setAssets] = useState([]);
@@ -24,13 +26,6 @@ export default function Assets() {
     fetchAssets();
     setIsLoading(false);
   }, []);
-
-  const formatChange = (change) => {
-    const splitChange = change.toString().split('.');
-    if (!splitChange[1]) return `${splitChange[0]},00%`;
-    if (splitChange[1].length === 1) return `${splitChange.join(',')}0%`;
-    return `${splitChange.join(',')}%`;
-  };
 
   return (
     <>
@@ -49,49 +44,22 @@ export default function Assets() {
           <CircularProgress color="primary" />
         </Box>
       ) : (
-        <Box
-          sx={{
-            backgroundColor: (theme) => theme.palette.grey[900],
-            px: 2,
-            flexGrow: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Card
+        <>
+          <Title>Recent Orders</Title>
+          <Box
             sx={{
-              bgcolor: (theme) => theme.palette.grey[700],
-              m: 1,
+              backgroundColor: (theme) => theme.palette.grey[900],
+              px: 2,
+              flexGrow: 1,
               display: 'flex',
-              justifyContent: 'space-between',
-              width: '100%',
-              minWidth: 275,
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
           >
-            <CardContent sx={{ py: 1, flexGrow: 1 }}>
-              <Typography display="inline-block" width="30%">
-                Ativo
-              </Typography>
-              <Typography display="inline-block" width="24%">
-                Posição
-              </Typography>
-              <Typography display="inline-block" width="30%">
-                Valor atual
-              </Typography>
-              <Typography display="inline-block" width="16%">
-                Variação
-              </Typography>
-            </CardContent>
-            <Box sx={{ width: '210px', ml: 2 }}>
-            </Box>
-          </Card>
-          {assets.map((asset) => (
             <Card
-              key={asset.assetId}
               sx={{
-                bgcolor: (theme) => theme.palette.grey[900],
+                bgcolor: (theme) => theme.palette.grey[700],
                 m: 1,
                 display: 'flex',
                 justifyContent: 'space-between',
@@ -100,39 +68,68 @@ export default function Assets() {
               }}
             >
               <CardContent sx={{ py: 1, flexGrow: 1 }}>
-                <Typography
-                  variant="h6"
-                  color="primary"
-                  display="inline-block"
-                  width="30%"
-                >
-                  {asset.ticker}
+                <Typography display="inline-block" width="30%">
+                  Ativo
                 </Typography>
-                <Typography display="inline-block" width="20%">
-                  {asset.quantity}
+                <Typography display="inline-block" width="24%">
+                  Posição
                 </Typography>
-                <Typography variant="h6" display="inline-block" width="30%">
-                  {asset.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' })}
+                <Typography display="inline-block" width="30%">
+                  Valor atual
                 </Typography>
-                <Typography
-                  color={asset.change >= 0 ? '#66bb6a' : 'error'}
-                  display="inline-block"
-                  width="20%"
-                >
-                  {formatChange(asset.change)}
+                <Typography display="inline-block" width="16%">
+                  Variação
                 </Typography>
               </CardContent>
-              <CardActions sx={{ ml: 2 }}>
-                <Button size="small" color="success">
-                  Comprar
-                </Button>
-                <Button size="small" color="error">
-                  Vender
-                </Button>
-              </CardActions>
+              <Box sx={{ width: '210px', ml: 2 }}/>
             </Card>
-          ))}
-        </Box>
+            {assets.map((asset) => (
+              <Card
+                key={asset.assetId}
+                sx={{
+                  bgcolor: (theme) => theme.palette.grey[900],
+                  m: 1,
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  width: '100%',
+                  minWidth: 275,
+                }}
+              >
+                <CardContent sx={{ py: 1, flexGrow: 1 }}>
+                  <Typography
+                    variant="h6"
+                    color="primary"
+                    display="inline-block"
+                    width="30%"
+                  >
+                    {asset.ticker}
+                  </Typography>
+                  <Typography display="inline-block" width="20%">
+                    {asset.quantity}
+                  </Typography>
+                  <Typography variant="h6" display="inline-block" width="30%">
+                    {formatMoney(asset.price)}
+                  </Typography>
+                  <Typography
+                    color={asset.change >= 0 ? '#66bb6a' : 'error'}
+                    display="inline-block"
+                    width="20%"
+                  >
+                    {formatChange(asset.change)}
+                  </Typography>
+                </CardContent>
+                <CardActions sx={{ ml: 2 }}>
+                  <Button size="small" color="success">
+                    Comprar
+                  </Button>
+                  <Button size="small" color="error">
+                    Vender
+                  </Button>
+                </CardActions>
+              </Card>
+            ))}
+          </Box>
+        </>
       )}
     </>
   );

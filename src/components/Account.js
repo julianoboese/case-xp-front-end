@@ -4,6 +4,7 @@ import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import { deposit, withdraw } from '../services/account';
+import { formatMoney } from '../utils/format';
 
 export default function Account() {
   const { setIsActionOpen, balance, setBalance } = useContext(AppContext);
@@ -28,7 +29,7 @@ export default function Account() {
       history.push('/');
     }
 
-    setBalance(response.balance.toLocaleString('pt-BR', { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' }));
+    setBalance(formatMoney(response.balance));
 
     setIsLoading(false);
     setIsActionOpen(false);
