@@ -1,6 +1,6 @@
 export const getAllAssets = async () => {
   const token = sessionStorage.getItem('token');
-  const response = await fetch('https://case-xp-back-end.herokuapp.com/ativos/all', {
+  const response = await fetch('https://case-xp-back-end.herokuapp.com/assets/all', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -16,7 +16,7 @@ export const getAllAssets = async () => {
 
 export const getAssets = async () => {
   const token = sessionStorage.getItem('token');
-  const response = await fetch('https://case-xp-back-end.herokuapp.com/ativos', {
+  const response = await fetch('https://case-xp-back-end.herokuapp.com/assets', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ export const getAssets = async () => {
 
 export const getAsset = async (assetId) => {
   const token = sessionStorage.getItem('token');
-  const response = await fetch(`https://case-xp-back-end.herokuapp.com/ativos/${assetId}`, {
+  const response = await fetch(`https://case-xp-back-end.herokuapp.com/assets/${assetId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
