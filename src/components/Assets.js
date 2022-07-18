@@ -7,14 +7,20 @@ import {
   CircularProgress,
   Typography,
 } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import { getAssets } from '../services/assets';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import AppContext from '../context/AppContext';
+import { getAsset, getAssets } from '../services/assets';
 import { formatChange, formatMoney } from '../utils/format';
 import Title from './Title';
 
 export default function Assets() {
+  const { setIsActionOpen, currentAsset, setCurrentAsset } = useContext(AppContext);
+
   const [assets, setAssets] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const history = useHistory();
 
   useEffect(() => {
     async function fetchAssets() {
@@ -25,7 +31,18 @@ export default function Assets() {
 
     fetchAssets();
     setIsLoading(false);
-  }, []);
+  }, [currentAsset]);
+
+  const handleGetAsset = async (assetId) => {
+    setIsActionOpen(true);
+    const response = await getAsset(assetId);
+
+    if (response.status === 401) {
+      history.push('/');
+    }
+
+    setCurrentAsset(response);
+  };
 
   return (
     <>
@@ -83,7 +100,7 @@ export default function Assets() {
               </CardContent>
               <Box sx={{ width: '210px', ml: 2 }}/>
             </Card>
-            {assets.map((asset) => (
+            {assets.sort((a, b) => a.assetId - b.assetId).map((asset) => (
               <Card
                 key={asset.assetId}
                 sx={{
@@ -119,10 +136,10 @@ export default function Assets() {
                   </Typography>
                 </CardContent>
                 <CardActions sx={{ ml: 2 }}>
-                  <Button size="small" color="success">
+                  <Button size="small" color="success" onClick={() => handleGetAsset(asset.assetId)}>
                     Comprar
                   </Button>
-                  <Button size="small" color="error">
+                  <Button size="small" color="error" onClick={() => handleGetAsset(asset.assetId)}>
                     Vender
                   </Button>
                 </CardActions>
