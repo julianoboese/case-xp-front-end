@@ -1,7 +1,7 @@
 export const buyAsset = async (assetId, amount) => {
   const token = sessionStorage.getItem('token');
   const response = await fetch(
-    'https://case-xp-back-end.herokuapp.com/investimentos/comprar',
+    'https://case-xp-back-end.herokuapp.com/order/buy',
     {
       method: 'POST',
       headers: {
@@ -21,7 +21,7 @@ export const buyAsset = async (assetId, amount) => {
 export const sellAsset = async (assetId, amount) => {
   const token = sessionStorage.getItem('token');
   const response = await fetch(
-    'https://case-xp-back-end.herokuapp.com/investimentos/vender',
+    'https://case-xp-back-end.herokuapp.com/order/sell',
     {
       method: 'POST',
       headers: {
