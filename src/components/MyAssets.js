@@ -15,7 +15,7 @@ import { getAsset, getAssets } from '../services/assets';
 import { formatChange, formatMoney } from '../utils/format';
 import Title from './Title';
 
-export default function Assets() {
+export default function MyAssets() {
   const {
     setIsActionOpen, currentAsset, setCurrentAsset,
     setCurrentOperation,
@@ -79,12 +79,11 @@ export default function Assets() {
               alignItems: 'center',
             }}
           >
-            <Grid container columnSpacing={3} rowSpacing={1}>
+            <Grid container columnSpacing={3} rowSpacing={1} sx={{ py: 1 }}>
             <Grid item xs={6}>
             <Card
               sx={{
                 bgcolor: (theme) => theme.palette.grey[700],
-                mt: 1,
                 display: 'flex',
                 justifyContent: 'space-between',
                 width: '100%',
@@ -111,7 +110,6 @@ export default function Assets() {
             <Grid item xs={6}>
             <Card
               sx={{
-                mt: 1,
                 bgcolor: (theme) => theme.palette.grey[700],
                 display: 'flex',
                 justifyContent: 'space-between',

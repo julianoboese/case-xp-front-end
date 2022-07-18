@@ -89,12 +89,11 @@ export default function Order() {
           display: 'flex',
           justifyContent: 'space-between',
           width: '100%',
-          minHeight: '50px',
+          minHeight: '45px',
         }}
       >
         <CardContent sx={{ py: 1, flexGrow: 1 }}>
           <Typography
-            variant="h6"
             color="primary"
             display="inline-block"
             width="30%"
@@ -104,7 +103,7 @@ export default function Order() {
           <Typography display="inline-block" width="20%">
             {currentAsset.quantity}
           </Typography>
-          <Typography variant="h6" display="inline-block" width="30%">
+          <Typography display="inline-block" width="30%">
             {currentAsset.price && formatMoney(currentAsset.price)}
           </Typography>
           <Typography
