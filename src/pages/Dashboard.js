@@ -1,39 +1,36 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { CssBaseline, Grid, Container, Box, Paper, Link, List, Toolbar, Drawer, Typography, Divider,
-  IconButton, CircularProgress, Button } from '@mui/material';
+import {
+  CssBaseline,
+  Grid,
+  Container,
+  Box,
+  Paper,
+  Link,
+  List,
+  Toolbar,
+  Drawer,
+  Typography,
+  Divider,
+  IconButton,
+  CircularProgress,
+  Button,
+} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { useHistory } from 'react-router-dom';
-import Assets from '../components/Assets';
+import MyAssets from '../components/MyAssets';
 import Deposits from '../components/Deposits';
-import Orders from '../components/Orders';
+// import Orders from '../components/Orders';
 import ListItems from '../components/ListItems';
 import AppContext from '../context/AppContext';
 import Account from '../components/Account';
 import getUser from '../services/user';
 import logoXp from '../assets/logo-xp.png';
 import Order from '../components/Order';
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import AllAssets from '../components/AllAssets';
 
 const drawerWidth = 240;
 
@@ -117,8 +114,8 @@ function DashboardContent() {
 
   return (
     <Box sx={{ display: 'flex' }}>
-    {isLoading
-      ? <Box
+      {isLoading ? (
+        <Box
           component="main"
           sx={{
             backgroundColor: (theme) => theme.palette.grey[900],
@@ -132,7 +129,8 @@ function DashboardContent() {
         >
           <CircularProgress color="primary" />
         </Box>
-      : <>
+      ) : (
+        <>
           <CssBaseline />
           <AppBar position="absolute" open={isMenuOpen}>
             <Toolbar
@@ -152,7 +150,14 @@ function DashboardContent() {
               >
                 <MenuIcon />
               </IconButton>
-              <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <Box
+                sx={{
+                  width: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}
+              >
                 <Box
                   component="img"
                   sx={{
@@ -161,13 +166,16 @@ function DashboardContent() {
                   alt="The house from the offer."
                   src={logoXp}
                 />
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: '30px' }}>
+                <Box
+                  sx={{ display: 'flex', alignItems: 'center', gap: '30px' }}
+                >
                   <Typography>
                     {`${user.firstName} ${user.lastName}`}
                   </Typography>
                   <Button
                     type="submit"
-                    variant="contained"
+                    variant="outlined"
+                    sx={{ fontSize: '0.8rem' }}
                     onClick={handleLogout}
                   >
                     Sair
@@ -194,11 +202,13 @@ function DashboardContent() {
               <ListItems />
             </List>
           </LeftDrawer>
-          <Drawer anchor="right" open={isActionOpen} onClose={() => setIsActionOpen(false)}>
+          <Drawer
+            anchor="right"
+            open={isActionOpen}
+            onClose={() => setIsActionOpen(false)}
+          >
             {/* Tarefas de conta e investimento */}
-            <Box
-              sx={{ width: currentOperation === 'order' ? 500 : 400 }}
-            >
+            <Box sx={{ width: currentOperation === 'order' ? 500 : 400 }}>
               <Toolbar />
               {currentOperation === 'account' && <Account />}
               {currentOperation === 'order' && <Order />}
@@ -223,16 +233,17 @@ function DashboardContent() {
                       p: 2,
                       display: 'flex',
                       flexDirection: 'column',
-                      height: 240,
                     }}
                   >
-                    <Assets />
+                    <MyAssets />
                   </Paper>
                 </Grid>
                 {/* Recent Orders */}
                 <Grid item xs={12} md={8} lg={9}>
-                  <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                    <Orders />
+                  <Paper
+                    sx={{ p: 2, display: 'flex', flexDirection: 'column' }}
+                  >
+                    <AllAssets />
                   </Paper>
                 </Grid>
                 {/* Recent Deposits */}
@@ -249,12 +260,30 @@ function DashboardContent() {
                   </Paper>
                 </Grid>
               </Grid>
-              <Copyright sx={{ pt: 4 }} />
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                align="center"
+                sx={{ mt: 5 }}
+              >
+                {'Projeto desenvolvido para o processo seletivo da XP Inc.'}
+              </Typography>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                align="center"
+                sx={{ mt: 1 }}
+              >
+                <Link color="inherit" href="https://github.com/julianoboese">
+                  Juliano Boese
+                </Link>
+                , 2022
+              </Typography>
             </Container>
           </Box>
-          </>
-      }
-        </Box>
+        </>
+      )}
+    </Box>
   );
 }
 
