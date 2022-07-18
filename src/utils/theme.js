@@ -13,6 +13,14 @@ const theme = createTheme({
       main: '#595959',
     },
   },
+  typography: {
+    h5: {
+      fontSize: '1.2rem',
+    },
+    h6: {
+      fontSize: '0.8rem',
+    },
+  },
 });
 
 export default theme;
