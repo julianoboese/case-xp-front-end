@@ -104,7 +104,7 @@ export default function AllAssets() {
               alignItems: 'center',
             }}
           >
-            <Grid container columnSpacing={3} rowSpacing={1} sx={{ py: 1 }}>
+            <Grid container columnSpacing={2} rowSpacing={1} sx={{ py: 1 }}>
             {assetsFiltered.filter((_asset, index) => index < 16)
               .sort((a, b) => a.assetId - b.assetId).map((asset) => (
               <Grid key={asset.assetId} item xs={3}>
@@ -125,7 +125,7 @@ export default function AllAssets() {
                     {asset.ticker}
                   </Typography>
                   <Typography variant="h6" display="block">
-                    {asset.name.slice(0, 18)}
+                    {asset.name.slice(0, 19)}
                   </Typography>
                 </CardContent>
                 <CardActions>
