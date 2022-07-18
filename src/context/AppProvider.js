@@ -11,6 +11,8 @@ function AppProvider({ children }) {
 
   const [currentAsset, setCurrentAsset] = useState({});
 
+  const [currentOperation, setCurrentOperation] = useState('');
+
   return (
     <AppContext.Provider
       value={{
@@ -22,6 +24,8 @@ function AppProvider({ children }) {
         setBalance,
         currentAsset,
         setCurrentAsset,
+        currentOperation,
+        setCurrentOperation,
       }}
     >
       {children}
