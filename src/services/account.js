@@ -17,7 +17,7 @@ export const getBalance = async () => {
 export const deposit = async (amount) => {
   const token = sessionStorage.getItem('token');
   const response = await fetch(
-    'https://case-xp-back-end.herokuapp.com/conta/deposito',
+    'https://case-xp-back-end.herokuapp.com/account/deposit',
     {
       method: 'POST',
       headers: {
@@ -37,7 +37,7 @@ export const deposit = async (amount) => {
 export const withdraw = async (amount) => {
   const token = sessionStorage.getItem('token');
   const response = await fetch(
-    'https://case-xp-back-end.herokuapp.com/conta/saque',
+    'https://case-xp-back-end.herokuapp.com/account/withdraw',
     {
       method: 'POST',
       headers: {
