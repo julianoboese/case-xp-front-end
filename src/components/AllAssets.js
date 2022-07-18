@@ -6,6 +6,7 @@ import {
   CardContent,
   CircularProgress,
   Grid,
+  TextField,
   Typography,
 } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
@@ -21,6 +22,7 @@ export default function AllAssets() {
   } = useContext(AppContext);
 
   const [allAssets, setAllAssets] = useState([]);
+  const [assetsFiltered, setAssetsFiltered] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const history = useHistory();
@@ -29,7 +31,7 @@ export default function AllAssets() {
     async function fetchAllAssets() {
       const assets = await getAllAssets();
 
-      setAllAssets(assets);
+      setAssetsFiltered(assets);
     }
 
     fetchAllAssets();
@@ -46,6 +48,18 @@ export default function AllAssets() {
     }
 
     setCurrentAsset(response);
+  };
+
+  const handleFilterAssets = async (text) => {
+    if (!text) return setAssetsFiltered(allAssets);
+
+    const filtered = allAssets.filter((asset) => (
+      asset.name.toLowerCase().includes(text.toLowerCase())
+      || asset.ticker.toLowerCase().includes(text.toLowerCase())
+    ))
+      .sort((a, b) => a.ticker.localeCompare(b.ticker));
+
+    return setAssetsFiltered(filtered);
   };
 
   return (
@@ -66,7 +80,18 @@ export default function AllAssets() {
         </Box>
       ) : (
         <>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <Title>Ativos disponíveis</Title>
+            <TextField
+              size="small"
+              margin="normal"
+              id="assets"
+              label="Busque um ativo"
+              name="assets"
+              autoComplete="asset"
+              onChange={(event) => handleFilterAssets(event.target.value)}
+            />
+          </Box>
           <Box
             sx={{
               backgroundColor: (theme) => theme.palette.grey[900],
@@ -79,7 +104,7 @@ export default function AllAssets() {
             }}
           >
             <Grid container columnSpacing={3} rowSpacing={1} sx={{ py: 1 }}>
-            {allAssets.filter((_asset, index) => index < 16)
+            {assetsFiltered.filter((_asset, index) => index < 16)
               .sort((a, b) => a.assetId - b.assetId).map((asset) => (
               <Grid key={asset.assetId} item xs={3}>
               <Card
@@ -99,7 +124,7 @@ export default function AllAssets() {
                     {asset.ticker}
                   </Typography>
                   <Typography variant="h6" display="block">
-                    {asset.name.slice(0, 20)}
+                    {asset.name.slice(0, 18)}
                   </Typography>
                 </CardContent>
                 <CardActions>
