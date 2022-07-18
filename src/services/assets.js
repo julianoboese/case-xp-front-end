@@ -14,9 +14,9 @@ export const getAssets = async () => {
   return responseJson;
 };
 
-export const getAsset = async (id) => {
+export const getAsset = async (assetId) => {
   const token = sessionStorage.getItem('token');
-  const response = await fetch(`https://case-xp-back-end.herokuapp.com/conta${id}`, {
+  const response = await fetch(`https://case-xp-back-end.herokuapp.com/ativos/${assetId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

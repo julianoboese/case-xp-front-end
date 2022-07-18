@@ -9,6 +9,8 @@ function AppProvider({ children }) {
 
   const [balance, setBalance] = useState(0);
 
+  const [currentAsset, setCurrentAsset] = useState({});
+
   return (
     <AppContext.Provider
       value={{
@@ -18,6 +20,8 @@ function AppProvider({ children }) {
         setUser,
         balance,
         setBalance,
+        currentAsset,
+        setCurrentAsset,
       }}
     >
       {children}
