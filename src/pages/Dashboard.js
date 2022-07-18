@@ -22,7 +22,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { useHistory } from 'react-router-dom';
 import MyAssets from '../components/MyAssets';
-import Deposits from '../components/Deposits';
+// import Deposits from '../components/Deposits';
 // import Orders from '../components/Orders';
 import ListItems from '../components/ListItems';
 import AppContext from '../context/AppContext';
@@ -239,7 +239,7 @@ function DashboardContent() {
                   </Paper>
                 </Grid>
                 {/* Recent Orders */}
-                <Grid item xs={12} md={8} lg={9}>
+                <Grid item xs={12} md={12} lg={12}>
                   <Paper
                     sx={{ p: 2, display: 'flex', flexDirection: 'column' }}
                   >
@@ -247,7 +247,7 @@ function DashboardContent() {
                   </Paper>
                 </Grid>
                 {/* Recent Deposits */}
-                <Grid item xs={12} md={4} lg={3}>
+                {/* <Grid item xs={12} md={4} lg={3}>
                   <Paper
                     sx={{
                       p: 2,
@@ -258,7 +258,7 @@ function DashboardContent() {
                   >
                     <Deposits />
                   </Paper>
-                </Grid>
+                </Grid> */}
               </Grid>
               <Typography
                 variant="body2"

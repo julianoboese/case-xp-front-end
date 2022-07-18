@@ -79,7 +79,8 @@ export default function AllAssets() {
             }}
           >
             <Grid container columnSpacing={3} rowSpacing={1} sx={{ py: 1 }}>
-            {allAssets.sort((a, b) => a.assetId - b.assetId).map((asset) => (
+            {allAssets.filter((_asset, index) => index < 16)
+              .sort((a, b) => a.assetId - b.assetId).map((asset) => (
               <Grid key={asset.assetId} item xs={3}>
               <Card
                 sx={{
@@ -98,7 +99,7 @@ export default function AllAssets() {
                     {asset.ticker}
                   </Typography>
                   <Typography variant="h6" display="block">
-                    {asset.name}
+                    {asset.name.slice(0, 20)}
                   </Typography>
                 </CardContent>
                 <CardActions>
