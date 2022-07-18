@@ -5,6 +5,7 @@ import {
   CardActions,
   CardContent,
   CircularProgress,
+  Grid,
   Typography,
 } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
@@ -66,7 +67,7 @@ export default function Assets() {
         </Box>
       ) : (
         <>
-          <Title>Recent Orders</Title>
+          <Title>Meus Ativos</Title>
           <Box
             sx={{
               backgroundColor: (theme) => theme.palette.grey[900],
@@ -78,38 +79,68 @@ export default function Assets() {
               alignItems: 'center',
             }}
           >
+            <Grid container columnSpacing={3} rowSpacing={1}>
+            <Grid item xs={6}>
             <Card
               sx={{
                 bgcolor: (theme) => theme.palette.grey[700],
-                m: 1,
+                mt: 1,
                 display: 'flex',
                 justifyContent: 'space-between',
                 width: '100%',
                 minWidth: 275,
               }}
             >
-              <CardContent sx={{ py: 1, flexGrow: 1 }}>
-                <Typography display="inline-block" width="30%">
+              <CardContent sx={{ py: 0.8, flexGrow: 1 }}>
+                <Typography variant="h6" display="inline-block" width="30%">
                   Ativo
                 </Typography>
-                <Typography display="inline-block" width="24%">
+                <Typography variant="h6" display="inline-block" width="24%">
                   Posição
                 </Typography>
-                <Typography display="inline-block" width="30%">
+                <Typography variant="h6" display="inline-block" width="30%">
                   Valor atual
                 </Typography>
-                <Typography display="inline-block" width="16%">
+                <Typography variant="h6" display="inline-block" width="16%">
                   Variação
                 </Typography>
               </CardContent>
-              <Box sx={{ width: '210px', ml: 2 }}/>
+              <Box sx={{ width: '150px' }}/>
             </Card>
+            </Grid>
+            <Grid item xs={6}>
+            <Card
+              sx={{
+                mt: 1,
+                bgcolor: (theme) => theme.palette.grey[700],
+                display: 'flex',
+                justifyContent: 'space-between',
+                width: '100%',
+                minWidth: 275,
+              }}
+            >
+              <CardContent sx={{ py: 0.8, flexGrow: 1 }}>
+                <Typography variant="h6" display="inline-block" width="30%">
+                  Ativo
+                </Typography>
+                <Typography variant="h6" display="inline-block" width="24%">
+                  Posição
+                </Typography>
+                <Typography variant="h6" display="inline-block" width="30%">
+                  Valor atual
+                </Typography>
+                <Typography variant="h6" display="inline-block" width="16%">
+                  Variação
+                </Typography>
+              </CardContent>
+              <Box sx={{ width: '150px' }}/>
+            </Card>
+            </Grid>
             {assets.sort((a, b) => a.assetId - b.assetId).map((asset) => (
+              <Grid key={asset.assetId} item xs={6}>
               <Card
-                key={asset.assetId}
                 sx={{
                   bgcolor: (theme) => theme.palette.grey[900],
-                  m: 1,
                   display: 'flex',
                   justifyContent: 'space-between',
                   width: '100%',
@@ -125,7 +156,7 @@ export default function Assets() {
                   >
                     {asset.ticker}
                   </Typography>
-                  <Typography display="inline-block" width="20%">
+                  <Typography variant="h6" display="inline-block" width="20%">
                     {asset.quantity}
                   </Typography>
                   <Typography variant="h6" display="inline-block" width="30%">
@@ -135,20 +166,21 @@ export default function Assets() {
                     color={asset.change >= 0 ? '#66bb6a' : 'error'}
                     display="inline-block"
                     width="20%"
+                    variant="h6"
                   >
                     {formatChange(asset.change)}
                   </Typography>
                 </CardContent>
                 <CardActions sx={{ ml: 2 }}>
-                  <Button size="small" color="success" onClick={() => handleGetAsset(asset.assetId)}>
-                    Comprar
-                  </Button>
-                  <Button size="small" color="error" onClick={() => handleGetAsset(asset.assetId)}>
-                    Vender
+                  <Button size="small" variant='contained'
+                    sx={{ fontSize: '0.6rem', fontWeight: 'bold' }} onClick={() => handleGetAsset(asset.assetId)}>
+                    Negociar
                   </Button>
                 </CardActions>
               </Card>
+              </Grid>
             ))}
+            </Grid>
           </Box>
         </>
       )}
