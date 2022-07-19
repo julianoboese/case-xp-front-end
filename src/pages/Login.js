@@ -10,9 +10,10 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { LoadingButton } from '@mui/lab';
+import { Alert, LoadingButton } from '@mui/lab';
 import isEmail from 'validator/lib/isEmail';
 import isByteLength from 'validator/lib/isByteLength';
+import { Grow } from '@mui/material';
 import logoXp from '../assets/logo-xp.png';
 import login from '../services/login';
 import getUser from '../services/user';
@@ -22,6 +23,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [validation, setValidation] = useState({ email: true, password: true });
+  const [errorMessage, setErrorMessage] = useState('');
 
   const history = useHistory();
 
@@ -60,7 +62,8 @@ export default function Login() {
       return history.push('/dashboard');
     }
     setIsLoading(false);
-    return alert(message);
+    setErrorMessage(message);
+    return setTimeout(() => setErrorMessage(''), 4000);
   };
 
   return (
@@ -140,6 +143,11 @@ export default function Login() {
               Entrar
             </Button>
           )}
+          {errorMessage
+            && <Grow in={errorMessage}>
+                <Alert variant='filled' severity="error" sx={{ m: 1 }}>{errorMessage}</Alert>
+              </Grow>
+          }
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="/register" variant="body2">
