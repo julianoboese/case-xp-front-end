@@ -8,13 +8,18 @@
     "jquery": true
   },
   "extends": [
+    "eslint:recommended",
     "airbnb-base",
     "plugin:jest/recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:jsx-a11y/recommended"
   ],
   "plugins": [
     "jest",
-    "react"
+    "react",
+    "react-hooks",
+    "jsx-a11y"
   ],
   "parserOptions": {
     "ecmaVersion": "latest",
