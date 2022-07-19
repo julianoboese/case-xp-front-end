@@ -31,7 +31,6 @@ export default function Account() {
     }
 
     setBalance(formatMoney(response.balance));
-
     setIsLoading(false);
     setIsActionOpen(false);
     setCurrentOperation('');
@@ -55,7 +54,6 @@ export default function Account() {
         id="account"
         label="Digite o valor"
         name="account"
-        autoComplete="account"
         onChange={(event) => setAmount(event.target.value)}
       />
 
@@ -67,7 +65,7 @@ export default function Account() {
             <Button
               type="submit"
               variant="contained"
-              id='deposit'
+              id="deposit"
               onClick={handleSubmit}
             >
               Depositar
@@ -76,7 +74,7 @@ export default function Account() {
               color="neutral"
               type="submit"
               variant="contained"
-              id='withdraw'
+              id="withdraw"
               onClick={handleSubmit}
             >
               Retirar

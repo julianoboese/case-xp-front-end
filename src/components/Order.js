@@ -108,7 +108,7 @@ export default function Order() {
             {currentAsset.price && formatMoney(currentAsset.price)}
           </Typography>
           <Typography
-            color={currentAsset.change >= 0 ? '#66bb6a' : 'error'}
+            color={currentAsset.change >= 0 ? 'success' : 'error'}
             display="inline-block"
             width="20%"
           >
@@ -120,10 +120,9 @@ export default function Order() {
         margin="normal"
         required
         fullWidth
-        id="account"
+        id="order"
         label="Digite a quantidade"
-        name="account"
-        autoComplete="account"
+        name="order"
         onChange={(event) => setAmount(event.target.value)}
       />
       <OperationBox>

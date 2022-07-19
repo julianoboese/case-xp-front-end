@@ -89,7 +89,6 @@ export default function AllAssets() {
               id="assets"
               label="Busque um ativo"
               name="assets"
-              autoComplete="asset"
               onChange={(event) => handleFilterAssets(event.target.value)}
             />
           </Box>
