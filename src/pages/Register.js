@@ -9,6 +9,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { LoadingButton } from '@mui/lab';
+import isEmail from 'validator/lib/isEmail';
+import isByteLength from 'validator/lib/isByteLength';
 import logoXp from '../assets/logo-xp.png';
 import register from '../services/register';
 import getUser from '../services/user';
@@ -19,6 +21,12 @@ export default function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [validation, setValidation] = useState({
+    firstName: true,
+    lastName: true,
+    email: true,
+    password: true,
+  });
 
   const history = useHistory();
 
@@ -32,12 +40,36 @@ export default function Register() {
     }
 
     fetchUser();
-  }, []);
+  }, [history]);
+
+  const handleLengthValidation = (length) => (event) => {
+    if (!isByteLength(event.target.value, { min: length })) {
+      setValidation({ ...validation, [event.target.name]: false });
+    }
+  };
+
+  const handleEmailValidation = () => {
+    if (!isEmail(email)) {
+      setValidation({ ...validation, email: false });
+    }
+  };
+
+  const handleButtonDisabled = () => (
+    !isEmail(email)
+      || !isByteLength(password, { min: 8 })
+      || !isByteLength(firstName, { min: 2 })
+      || !isByteLength(lastName, { min: 2 })
+  );
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
-    const { token, message } = await register({ firstName, lastName, email, password });
+    const { token, message } = await register({
+      firstName,
+      lastName,
+      email,
+      password,
+    });
     if (token) {
       sessionStorage.setItem('token', token);
       return history.push('/dashboard');
@@ -73,12 +105,19 @@ export default function Register() {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
-                autoComplete="given-name"
                 name="firstName"
                 required
                 fullWidth
                 id="firstName"
                 label="Nome"
+                error={!validation.firstName}
+                helperText={
+                  !validation.firstName
+                  && 'O nome deve ter no mínimo 2 caracteres'
+                }
+                onFocus={() => setValidation({ ...validation, firstName: true })
+                }
+                onBlur={handleLengthValidation(2)}
                 onChange={(event) => setFirstName(event.target.value)}
               />
             </Grid>
@@ -89,7 +128,13 @@ export default function Register() {
                 id="lastName"
                 label="Sobrenome"
                 name="lastName"
-                autoComplete="family-name"
+                error={!validation.lastName}
+                helperText={
+                  !validation.lastName
+                  && 'O sobrenome deve ter no mínimo 2 caracteres'
+                }
+                onFocus={() => setValidation({ ...validation, lastName: true })}
+                onBlur={handleLengthValidation(2)}
                 onChange={(event) => setLastName(event.target.value)}
               />
             </Grid>
@@ -100,7 +145,10 @@ export default function Register() {
                 id="email"
                 label="E-mail"
                 name="email"
-                autoComplete="email"
+                error={!validation.email}
+                helperText={!validation.email && 'Email inválido'}
+                onFocus={() => setValidation({ ...validation, email: true })}
+                onBlur={handleEmailValidation}
                 onChange={(event) => setEmail(event.target.value)}
               />
             </Grid>
@@ -112,7 +160,13 @@ export default function Register() {
                 label="Senha"
                 type="password"
                 id="password"
-                autoComplete="new-password"
+                error={!validation.password}
+                helperText={
+                  !validation.password
+                  && 'A senha deve ter no mínimo 8 caracteres'
+                }
+                onFocus={() => setValidation({ ...validation, password: true })}
+                onBlur={handleLengthValidation(8)}
                 onChange={(event) => setPassword(event.target.value)}
               />
             </Grid>
@@ -131,6 +185,7 @@ export default function Register() {
               type="submit"
               fullWidth
               variant="contained"
+              disabled={handleButtonDisabled()}
               sx={{ mt: 3, mb: 2 }}
             >
               Abrir conta
@@ -138,21 +193,31 @@ export default function Register() {
           )}
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href='/' variant="body2">
+              <Link href="/" variant="body2">
                 Já possui uma conta? Acesse.
               </Link>
             </Grid>
           </Grid>
         </Box>
       </Box>
-      <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 5 }}>
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        align="center"
+        sx={{ mt: 5 }}
+      >
         {'Projeto desenvolvido para o processo seletivo da XP Inc.'}
       </Typography>
-      <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 1 }}>
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        align="center"
+        sx={{ mt: 1 }}
+      >
         <Link color="inherit" href="https://github.com/julianoboese">
           Juliano Boese
         </Link>
-          ,{' '} 2022
+        , 2022
       </Typography>
     </Container>
   );
