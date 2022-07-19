@@ -55,7 +55,7 @@ export default function Order() {
         p: 2,
         display: 'flex',
         flexDirection: 'column',
-        height: 310,
+        height: 380,
       }}
     >
       <Title>Ordem a mercado</Title>
@@ -126,7 +126,21 @@ export default function Order() {
         autoComplete="account"
         onChange={(event) => setAmount(event.target.value)}
       />
-
+      <Box
+        sx={{
+          my: 2,
+          px: 1,
+          display: 'flex',
+          height: 240,
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <Typography>Valor total:</Typography>
+        <Typography variant="h5" color='primary' sx={{ fontWeight: 'bold' }}>
+          {formatMoney(currentAsset.price * amount)}
+        </Typography>
+      </Box>
       <Box
         sx={{
           my: 2,
