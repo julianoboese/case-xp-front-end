@@ -78,7 +78,6 @@ export default function Login() {
             label="E-mail"
             name="email"
             autoComplete="email"
-            autoFocus
             onChange={(event) => setEmail(event.target.value)}
           />
           <TextField

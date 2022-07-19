@@ -79,7 +79,6 @@ export default function Register() {
                 fullWidth
                 id="firstName"
                 label="Nome"
-                autoFocus
                 onChange={(event) => setFirstName(event.target.value)}
               />
             </Grid>
