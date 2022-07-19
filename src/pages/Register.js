@@ -11,6 +11,7 @@ import Container from '@mui/material/Container';
 import { LoadingButton } from '@mui/lab';
 import isEmail from 'validator/lib/isEmail';
 import isByteLength from 'validator/lib/isByteLength';
+import { Alert, Grow } from '@mui/material';
 import logoXp from '../assets/logo-xp.png';
 import register from '../services/register';
 import getUser from '../services/user';
@@ -27,6 +28,7 @@ export default function Register() {
     email: true,
     password: true,
   });
+  const [errorMessage, setErrorMessage] = useState('');
 
   const history = useHistory();
 
@@ -75,7 +77,8 @@ export default function Register() {
       return history.push('/dashboard');
     }
     setIsLoading(false);
-    return alert(message);
+    setErrorMessage(message);
+    return setTimeout(() => setErrorMessage(''), 4000);
   };
 
   return (
@@ -191,6 +194,11 @@ export default function Register() {
               Abrir conta
             </Button>
           )}
+          {errorMessage
+            && <Grow in={errorMessage}>
+                <Alert variant='filled' severity="error" sx={{ m: 1 }}>{errorMessage}</Alert>
+              </Grow>
+          }
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="/" variant="body2">
