@@ -32,9 +32,9 @@ export default function Order() {
 
     let response;
     if (event.target.id === 'buy') {
-      response = await buyAsset(currentAsset.assetId, Number(amount));
+      response = await buyAsset(currentAsset.assetId, Number(amount), currentAsset.price);
     } else {
-      response = await sellAsset(currentAsset.assetId, Number(amount));
+      response = await sellAsset(currentAsset.assetId, Number(amount), currentAsset.price);
     }
 
     if (response.status === 401) {
