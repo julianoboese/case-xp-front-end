@@ -11,6 +11,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { LoadingButton } from '@mui/lab';
+import isEmail from 'validator/lib/isEmail';
+import isByteLength from 'validator/lib/isByteLength';
 import logoXp from '../assets/logo-xp.png';
 import login from '../services/login';
 import getUser from '../services/user';
@@ -19,6 +21,7 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [validation, setValidation] = useState({ email: true, password: true });
 
   const history = useHistory();
 
@@ -32,7 +35,21 @@ export default function Login() {
     }
 
     fetchUser();
-  }, []);
+  }, [history]);
+
+  const handleEmailValidation = () => {
+    if (!isEmail(email)) {
+      setValidation({ ...validation, email: false });
+    }
+  };
+
+  const handleLengthValidation = (length) => (event) => {
+    if (!isByteLength(event.target.value, { min: length })) {
+      setValidation({ ...validation, [event.target.name]: false });
+    }
+  };
+
+  const handleButtonDisabled = () => !isEmail(email) || !isByteLength(password, { min: 8 });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -77,7 +94,10 @@ export default function Login() {
             id="email"
             label="E-mail"
             name="email"
-            autoComplete="email"
+            error={!validation.email}
+            helperText={!validation.email && 'Email inválido'}
+            onFocus={() => setValidation({ ...validation, email: true })}
+            onBlur={handleEmailValidation}
             onChange={(event) => setEmail(event.target.value)}
           />
           <TextField
@@ -88,7 +108,12 @@ export default function Login() {
             label="Senha"
             type="password"
             id="password"
-            autoComplete="current-password"
+            error={!validation.password}
+            helperText={
+              !validation.password && 'A senha deve ter no mínimo 8 caracteres'
+            }
+            onFocus={() => setValidation({ ...validation, password: true })}
+            onBlur={handleLengthValidation(8)}
             onChange={(event) => setPassword(event.target.value)}
           />
           <FormControlLabel
@@ -109,28 +134,39 @@ export default function Login() {
               type="submit"
               fullWidth
               variant="contained"
+              disabled={handleButtonDisabled()}
               sx={{ mt: 3, mb: 2 }}
             >
               Entrar
             </Button>
           )}
-          <Grid container justifyContent='flex-end'>
+          <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href='/register' variant="body2">
+              <Link href="/register" variant="body2">
                 Não tem uma conta? Cadastre-se.
               </Link>
             </Grid>
           </Grid>
         </Box>
       </Box>
-      <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 5 }}>
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        align="center"
+        sx={{ mt: 5 }}
+      >
         {'Projeto desenvolvido para o processo seletivo da XP Inc.'}
       </Typography>
-      <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 1 }}>
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        align="center"
+        sx={{ mt: 1 }}
+      >
         <Link color="inherit" href="https://github.com/julianoboese">
           Juliano Boese
         </Link>
-          ,{' '} 2022
+        , 2022
       </Typography>
     </Container>
   );
