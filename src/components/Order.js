@@ -1,6 +1,5 @@
 import { LoadingButton } from '@mui/lab';
 import {
-  Box,
   Button,
   Card,
   CardContent,
@@ -13,6 +12,7 @@ import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import { buyAsset, sellAsset } from '../services/order';
 import { formatChange, formatMoney } from '../utils/format';
+import OperationBox from './OperationBox';
 import Title from './Title';
 
 export default function Order() {
@@ -126,32 +126,17 @@ export default function Order() {
         autoComplete="account"
         onChange={(event) => setAmount(event.target.value)}
       />
-      <Box
-        sx={{
-          my: 2,
-          px: 1,
-          display: 'flex',
-          height: 240,
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
+      <OperationBox>
         <Typography>Valor total:</Typography>
         <Typography variant="h5" color='primary' sx={{ fontWeight: 'bold' }}>
           {formatMoney(currentAsset.price * amount)}
         </Typography>
-      </Box>
-      <Box
-        sx={{
-          my: 2,
-          px: 2,
-          display: 'flex',
-          height: 240,
-          justifyContent: 'space-between',
-        }}
-      >
+      </OperationBox>
+      <OperationBox>
         {isLoading ? (
-          <LoadingButton loading fullWidth variant="contained" />
+          <LoadingButton loading fullWidth variant="contained">
+            Confirmando...
+          </LoadingButton>
         ) : (
           <>
             <Button
@@ -173,7 +158,7 @@ export default function Order() {
             </Button>
           </>
         )}
-      </Box>
+      </OperationBox>
     </Paper>
   );
 }
