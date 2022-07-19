@@ -1,10 +1,11 @@
 import { LoadingButton } from '@mui/lab';
-import { Box, Button, Paper, TextField, Typography } from '@mui/material';
+import { Button, Paper, TextField, Typography } from '@mui/material';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import { deposit, withdraw } from '../services/account';
 import { formatMoney } from '../utils/format';
+import OperationBox from './OperationBox';
 
 export default function Account() {
   const { setIsActionOpen, balance, setBalance, setCurrentOperation } = useContext(AppContext);
@@ -39,27 +40,14 @@ export default function Account() {
   return (
     <Paper
       component="form"
-      sx={{
-        m: 5,
-        p: 2,
-        display: 'flex',
-        flexDirection: 'column',
-        height: 240,
-      }}
+      sx={{ m: 5, p: 2, display: 'flex', flexDirection: 'column', height: 240 }}
     >
-      <Box
-        sx={{
-          my: 2,
-          px: 1,
-          display: 'flex',
-          height: 240,
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
+      <OperationBox>
         <Typography>Saldo em conta:</Typography>
-        <Typography variant="h5" color='primary' sx={{ fontWeight: 'bold' }}>{balance}</Typography>
-      </Box>
+        <Typography variant="h5" color="primary" sx={{ fontWeight: 'bold' }}>
+          {balance}
+        </Typography>
+      </OperationBox>
       <TextField
         margin="normal"
         required
@@ -71,15 +59,7 @@ export default function Account() {
         onChange={(event) => setAmount(event.target.value)}
       />
 
-      <Box
-        sx={{
-          my: 2,
-          px: 2,
-          display: 'flex',
-          height: 240,
-          justifyContent: 'space-between',
-        }}
-      >
+      <OperationBox>
         {isLoading ? (
           <LoadingButton loading fullWidth variant="contained" />
         ) : (
@@ -103,7 +83,7 @@ export default function Account() {
             </Button>
           </>
         )}
-      </Box>
+      </OperationBox>
     </Paper>
   );
 }
