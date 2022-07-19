@@ -42,7 +42,6 @@ export default function Order() {
     }
 
     setCurrentAsset({});
-
     setIsLoading(false);
     setIsActionOpen(false);
     setCurrentOperation('');

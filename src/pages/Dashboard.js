@@ -32,7 +32,7 @@ import logoXp from '../assets/logo-xp.png';
 import Order from '../components/Order';
 import AllAssets from '../components/AllAssets';
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',

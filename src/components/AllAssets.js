@@ -107,7 +107,7 @@ export default function AllAssets() {
             <Grid container columnSpacing={2} rowSpacing={1} sx={{ py: 1 }}>
             {assetsFiltered.filter((_asset, index) => index < 16)
               .sort((a, b) => a.assetId - b.assetId).map((asset) => (
-              <Grid key={asset.assetId} item xs={3}>
+              <Grid key={asset.ticker} item xs={3}>
               <Card
                 sx={{
                   bgcolor: (theme) => theme.palette.grey[900],

@@ -1,6 +1,6 @@
 export const getBalance = async () => {
   const token = sessionStorage.getItem('token');
-  const response = await fetch('https://case-xp-back-end.herokuapp.com/conta', {
+  const response = await fetch('https://case-xp-back-end.herokuapp.com/account', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
