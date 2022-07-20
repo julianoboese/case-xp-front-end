@@ -21,6 +21,7 @@ import getUser from '../services/user';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [remember, setRemember] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [validation, setValidation] = useState({ email: true, password: true });
   const [errorMessage, setErrorMessage] = useState('');
@@ -65,7 +66,13 @@ export default function Login() {
     const { token, message } = await login({ email, password });
     if (token) {
       sessionStorage.setItem('token', token);
-      localStorage.setItem('lastUser', JSON.stringify({ email, datetime: new Date() }));
+
+      if (remember) {
+        localStorage.setItem('lastUser', JSON.stringify({ email, datetime: new Date() }));
+      } else {
+        localStorage.removeItem('lastUser');
+      }
+
       return history.push('/dashboard');
     }
     setIsLoading(false);
@@ -104,7 +111,7 @@ export default function Login() {
             id="email"
             label="E-mail"
             name="email"
-            defaultValue={JSON.parse(localStorage.getItem('lastUser')).email}
+            defaultValue={JSON.parse(localStorage.getItem('lastUser'))?.email || ''}
             error={!validation.email}
             helperText={!validation.email && 'Email inválido'}
             onFocus={() => setValidation({ ...validation, email: true })}
@@ -128,7 +135,9 @@ export default function Login() {
             onChange={(event) => setPassword(event.target.value)}
           />
           <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
+            control={
+              <Checkbox name="remember" color="primary" onChange={(event) => setRemember(event.target.checked)} />
+            }
             label="Lembrar e-mail"
           />
           {isLoading ? (

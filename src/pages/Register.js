@@ -74,7 +74,6 @@ export default function Register() {
     });
     if (token) {
       sessionStorage.setItem('token', token);
-      localStorage.setItem('lastUser', JSON.stringify({ email, datetime: new Date() }));
       return history.push('/dashboard');
     }
     setIsLoading(false);
