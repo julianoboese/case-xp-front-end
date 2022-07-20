@@ -44,7 +44,7 @@ export default function Account() {
       <OperationBox>
         <Typography>Saldo em conta:</Typography>
         <Typography variant="h5" color="primary" sx={{ fontWeight: 'bold' }}>
-          {balance}
+          {formatMoney(balance)}
         </Typography>
       </OperationBox>
       <TextField

@@ -11,6 +11,7 @@ import {
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
+import { getBalance } from '../services/account';
 import { getAsset, getAssets } from '../services/assets';
 import { formatChange, formatMoney } from '../utils/format';
 import Title from './Title';
@@ -18,7 +19,7 @@ import Title from './Title';
 export default function MyAssets() {
   const {
     setIsActionOpen, currentAsset, setCurrentAsset,
-    setCurrentOperation,
+    setCurrentOperation, setBalance,
   } = useContext(AppContext);
 
   const [assets, setAssets] = useState([]);
@@ -47,6 +48,9 @@ export default function MyAssets() {
     }
 
     setCurrentAsset(response);
+
+    const { balance } = await getBalance();
+    setBalance(balance);
   };
 
   return (
