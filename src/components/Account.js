@@ -77,6 +77,7 @@ export default function Account() {
               type="submit"
               variant="contained"
               id="withdraw"
+              disabled={balance < amount}
               onClick={handleSubmit}
             >
               Retirar
