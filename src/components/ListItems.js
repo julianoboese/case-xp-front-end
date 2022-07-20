@@ -6,7 +6,6 @@ import PaidIcon from '@mui/icons-material/Paid';
 import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import { getBalance } from '../services/account';
-import { formatMoney } from '../utils/format';
 
 export default function ListItems() {
   const { setIsActionOpen, setBalance, setCurrentOperation } = useContext(AppContext);
@@ -16,13 +15,13 @@ export default function ListItems() {
   const openAccount = async () => {
     setCurrentOperation('account');
     setIsActionOpen(true);
-    const { balance, error } = await getBalance();
+    const response = await getBalance();
 
-    if (error?.status === 401) {
+    if (response.status === 401) {
       history.push('/');
     }
 
-    setBalance(formatMoney(balance));
+    setBalance(response.balance);
   };
 
   return (

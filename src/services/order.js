@@ -12,7 +12,7 @@ export const buyAsset = async (assetId, amount, price) => {
     },
   );
 
-  if (response.status >= 400) return { error: { status: response.status } };
+  if (response.status >= 400) return { status: response.status };
 
   const responseJson = await response.json();
   return responseJson;
@@ -32,7 +32,7 @@ export const sellAsset = async (assetId, amount, price) => {
     },
   );
 
-  if (response.status >= 400) return { error: { status: response.status } };
+  if (response.status >= 400) return { status: response.status };
 
   const responseJson = await response.json();
   return responseJson;

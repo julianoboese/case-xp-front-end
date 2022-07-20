@@ -59,7 +59,9 @@ export default function Account() {
 
       <OperationBox>
         {isLoading ? (
-          <LoadingButton loading fullWidth variant="contained" />
+          <LoadingButton loading fullWidth variant="contained">
+            Confirmando...
+          </LoadingButton>
         ) : (
           <>
             <Button

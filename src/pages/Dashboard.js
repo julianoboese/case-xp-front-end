@@ -94,18 +94,18 @@ function DashboardContent() {
     async function fetchUser() {
       setIsActionOpen(false);
 
-      const { firstName, lastName, error } = await getUser();
+      const response = await getUser();
 
-      if (error?.status === 401) {
+      if (response.status === 401) {
         history.push('/');
       }
 
-      setUser({ firstName, lastName });
+      setUser(response);
     }
 
     fetchUser();
     setIsLoading(false);
-  }, []);
+  }, [history, setIsActionOpen, setUser]);
 
   const handleLogout = () => {
     sessionStorage.removeItem('token');

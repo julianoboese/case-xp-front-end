@@ -8,7 +8,7 @@ const getUser = async () => {
     },
   });
 
-  if (response.status >= 400) return { error: { status: response.status } };
+  if (response.status >= 400) return { status: response.status };
 
   const responseJson = await response.json();
   return responseJson;

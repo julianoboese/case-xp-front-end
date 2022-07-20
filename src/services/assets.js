@@ -8,7 +8,7 @@ export const getAllAssets = async () => {
     },
   });
 
-  if (response.status >= 400) return { error: { status: response.status } };
+  if (response.status >= 400) return { status: response.status };
 
   const responseJson = await response.json();
   return responseJson;
@@ -24,7 +24,7 @@ export const getAssets = async () => {
     },
   });
 
-  if (response.status >= 400) return { error: { status: response.status } };
+  if (response.status >= 400) return { status: response.status };
 
   const responseJson = await response.json();
   return responseJson;
@@ -40,7 +40,7 @@ export const getAsset = async (assetId) => {
     },
   });
 
-  if (response.status >= 400) return { error: { status: response.status } };
+  if (response.status >= 400) return { status: response.status };
 
   const responseJson = await response.json();
   return responseJson;

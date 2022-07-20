@@ -34,9 +34,9 @@ export default function Register() {
 
   useEffect(() => {
     async function fetchUser() {
-      const { error } = await getUser();
+      const response = await getUser();
 
-      if (!error) {
+      if (!response.status) {
         history.push('/dashboard');
       }
     }
