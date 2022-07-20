@@ -1,5 +1,6 @@
 import { LoadingButton } from '@mui/lab';
 import {
+  Box,
   Button,
   Card,
   CardContent,
@@ -18,7 +19,7 @@ import Title from './Title';
 export default function Order() {
   const {
     setIsActionOpen, currentAsset, setCurrentAsset,
-    setCurrentOperation,
+    setCurrentOperation, balance,
   } = useContext(AppContext);
 
   const [amount, setAmount] = useState(0);
@@ -55,7 +56,7 @@ export default function Order() {
         p: 2,
         display: 'flex',
         flexDirection: 'column',
-        height: 380,
+        height: 450,
       }}
     >
       <Title>Ordem a mercado</Title>
@@ -125,8 +126,31 @@ export default function Order() {
         name="order"
         onChange={(event) => setAmount(event.target.value)}
       />
+      <Box sx={{
+        mt: 1,
+        px: 1,
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      }}>
+        <Typography>Poder de compra:</Typography>
+        <Typography color={balance < currentAsset.price * amount && 'error'}>
+          {formatMoney(balance)}
+        </Typography>
+      </Box>
+      <Box sx={{
+        px: 1,
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      }}>
+        <Typography>Poder de venda:</Typography>
+        <Typography color={amount > currentAsset.quantity && 'error'}>
+          {formatMoney(currentAsset.quantity * currentAsset.price)}
+        </Typography>
+      </Box>
       <OperationBox>
-        <Typography>Valor total:</Typography>
+        <Typography>Valor total da ordem:</Typography>
         <Typography variant="h5" color='primary' sx={{ fontWeight: 'bold' }}>
           {formatMoney(currentAsset.price * amount)}
         </Typography>
