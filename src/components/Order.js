@@ -1,9 +1,11 @@
 import { LoadingButton } from '@mui/lab';
 import {
+  Alert,
   Box,
   Button,
   Card,
   CardContent,
+  Grow,
   Paper,
   TextField,
   Typography,
@@ -24,6 +26,7 @@ export default function Order() {
 
   const [amount, setAmount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const history = useHistory();
 
@@ -42,10 +45,16 @@ export default function Order() {
       history.push('/');
     }
 
+    if (response.status) {
+      setIsLoading(false);
+      setErrorMessage(response.message);
+      return setTimeout(() => setErrorMessage(''), 4000);
+    }
+
     setCurrentAsset({});
     setIsLoading(false);
     setIsActionOpen(false);
-    setCurrentOperation('');
+    return setCurrentOperation('');
   };
 
   return (
@@ -184,6 +193,11 @@ export default function Order() {
           </>
         )}
       </OperationBox>
+      {errorMessage
+        && <Grow in={errorMessage}>
+            <Alert variant='filled' severity="error" sx={{ m: 1 }}>{errorMessage}</Alert>
+          </Grow>
+      }
     </Paper>
   );
 }
