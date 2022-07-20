@@ -37,6 +37,12 @@ export default function Login() {
     }
 
     fetchUser();
+
+    const lastUser = localStorage.getItem('lastUser');
+    if (lastUser) {
+      console.log(JSON.parse(lastUser).email);
+      setEmail(JSON.parse(lastUser).email);
+    }
   }, [history]);
 
   const handleEmailValidation = () => {
@@ -59,6 +65,7 @@ export default function Login() {
     const { token, message } = await login({ email, password });
     if (token) {
       sessionStorage.setItem('token', token);
+      localStorage.setItem('lastUser', JSON.stringify({ email, datetime: new Date() }));
       return history.push('/dashboard');
     }
     setIsLoading(false);
@@ -97,6 +104,7 @@ export default function Login() {
             id="email"
             label="E-mail"
             name="email"
+            defaultValue={JSON.parse(localStorage.getItem('lastUser')).email}
             error={!validation.email}
             helperText={!validation.email && 'Email inválido'}
             onFocus={() => setValidation({ ...validation, email: true })}
