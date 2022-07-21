@@ -8,6 +8,7 @@
     "user",
     "assets",
     "utils",
-    "order"
+    "order",
+    "services"
   ]
 }

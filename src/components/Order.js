@@ -118,7 +118,7 @@ export default function Order() {
             {currentAsset.price && formatMoney(currentAsset.price)}
           </Typography>
           <Typography
-            color={currentAsset.change >= 0 ? 'success' : 'error'}
+            color={currentAsset.change >= 0 ? '#66bb6a' : 'error'}
             display="inline-block"
             width="20%"
           >
@@ -133,6 +133,7 @@ export default function Order() {
         id="order"
         label="Digite a quantidade"
         name="order"
+        inputProps={{ style: { textAlign: 'right' } }}
         onChange={(event) => setAmount(event.target.value)}
       />
       <Box sx={{
@@ -175,7 +176,7 @@ export default function Order() {
               type="submit"
               variant="contained"
               id="buy"
-              disabled={balance < currentAsset.price * amount}
+              disabled={balance < currentAsset.price * amount || amount <= 0}
               onClick={handleSubmit}
             >
               Comprar
@@ -185,7 +186,7 @@ export default function Order() {
               type="submit"
               variant="contained"
               id="sell"
-              disabled={amount > currentAsset.quantity}
+              disabled={amount > currentAsset.quantity || amount <= 0}
               onClick={handleSubmit}
             >
               Vender

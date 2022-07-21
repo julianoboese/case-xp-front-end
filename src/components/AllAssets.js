@@ -12,13 +12,14 @@ import {
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
+import { getBalance } from '../services/account';
 import { getAsset, getAllAssets } from '../services/assets';
 import Title from './Title';
 
 export default function AllAssets() {
   const {
     setIsActionOpen, setCurrentAsset,
-    setCurrentOperation,
+    setCurrentOperation, setBalance,
   } = useContext(AppContext);
 
   const [allAssets, setAllAssets] = useState([]);
@@ -49,6 +50,8 @@ export default function AllAssets() {
     }
 
     setCurrentAsset(response);
+    const { balance } = await getBalance();
+    setBalance(balance);
   };
 
   const handleFilterAssets = async (text) => {

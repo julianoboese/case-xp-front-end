@@ -1,5 +1,5 @@
 import { LoadingButton } from '@mui/lab';
-import { Button, Paper, TextField, Typography } from '@mui/material';
+import { Alert, Button, Grow, Paper, TextField, Typography } from '@mui/material';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
@@ -12,6 +12,7 @@ export default function Account() {
 
   const [amount, setAmount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const history = useHistory();
 
@@ -30,10 +31,16 @@ export default function Account() {
       history.push('/');
     }
 
-    setBalance(formatMoney(response.balance));
+    if (response.status) {
+      setIsLoading(false);
+      setErrorMessage(response.message);
+      return setTimeout(() => setErrorMessage(''), 4000);
+    }
+
+    setBalance(response.balance);
     setIsLoading(false);
     setIsActionOpen(false);
-    setCurrentOperation('');
+    return setCurrentOperation('');
   };
 
   return (
@@ -54,6 +61,7 @@ export default function Account() {
         id="account"
         label="Digite o valor"
         name="account"
+        inputProps={{ style: { textAlign: 'right' } }}
         onChange={(event) => setAmount(event.target.value)}
       />
 
@@ -68,6 +76,7 @@ export default function Account() {
               type="submit"
               variant="contained"
               id="deposit"
+              disabled={amount <= 0}
               onClick={handleSubmit}
             >
               Depositar
@@ -77,7 +86,7 @@ export default function Account() {
               type="submit"
               variant="contained"
               id="withdraw"
-              disabled={balance < amount}
+              disabled={balance < amount || amount <= 0}
               onClick={handleSubmit}
             >
               Retirar
@@ -85,6 +94,11 @@ export default function Account() {
           </>
         )}
       </OperationBox>
+      {errorMessage
+        && <Grow in={errorMessage}>
+            <Alert variant='filled' severity="error" sx={{ m: 1 }}>{errorMessage}</Alert>
+          </Grow>
+      }
     </Paper>
   );
 }

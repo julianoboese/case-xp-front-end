@@ -1,5 +1,5 @@
 const login = async (loginData) => {
-  const response = await fetch('https://case-xp-back-end.herokuapp.com/login', {
+  const response = await fetch(`https://${process.env.BACK_ENV}.herokuapp.com/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
