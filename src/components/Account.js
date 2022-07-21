@@ -75,6 +75,7 @@ export default function Account() {
               type="submit"
               variant="contained"
               id="deposit"
+              disabled={amount <= 0}
               onClick={handleSubmit}
             >
               Depositar
@@ -84,7 +85,7 @@ export default function Account() {
               type="submit"
               variant="contained"
               id="withdraw"
-              disabled={balance < amount}
+              disabled={balance < amount || amount <= 0}
               onClick={handleSubmit}
             >
               Retirar
