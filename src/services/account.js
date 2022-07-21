@@ -1,6 +1,6 @@
 export const getBalance = async () => {
   const token = sessionStorage.getItem('token');
-  const response = await fetch(`https://${process.env.BACK_ENV}.herokuapp.com/account`, {
+  const response = await fetch(`https://${process.env.REACT_APP_BACK_ENV}.herokuapp.com/account`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ export const getBalance = async () => {
 export const deposit = async (amount) => {
   const token = sessionStorage.getItem('token');
   const response = await fetch(
-    `https://${process.env.BACK_ENV}.herokuapp.com/account/deposit`,
+    `https://${process.env.REACT_APP_BACK_ENV}.herokuapp.com/account/deposit`,
     {
       method: 'POST',
       headers: {
@@ -49,7 +49,7 @@ export const deposit = async (amount) => {
 export const withdraw = async (amount) => {
   const token = sessionStorage.getItem('token');
   const response = await fetch(
-    `https://${process.env.BACK_ENV}.herokuapp.com/account/withdraw`,
+    `https://${process.env.REACT_APP_BACK_ENV}.herokuapp.com/account/withdraw`,
     {
       method: 'POST',
       headers: {
