@@ -1,5 +1,5 @@
 const register = async (registerData) => {
-  const response = await fetch('https://case-xp-back-end-development.herokuapp.com/register', {
+  const response = await fetch(`https://${process.env.BACK_ENV}.herokuapp.com/register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
