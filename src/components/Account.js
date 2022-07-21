@@ -61,6 +61,7 @@ export default function Account() {
         id="account"
         label="Digite o valor"
         name="account"
+        inputProps={{ style: { textAlign: 'right' } }}
         onChange={(event) => setAmount(event.target.value)}
       />
 
