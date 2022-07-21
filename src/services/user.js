@@ -1,6 +1,6 @@
 const getUser = async () => {
   const token = sessionStorage.getItem('token');
-  const response = await fetch('https://case-xp-back-end.herokuapp.com/user', {
+  const response = await fetch('https://case-xp-back-end-development.herokuapp.com/user', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
