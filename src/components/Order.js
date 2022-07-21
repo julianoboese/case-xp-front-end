@@ -175,7 +175,7 @@ export default function Order() {
               type="submit"
               variant="contained"
               id="buy"
-              disabled={balance < currentAsset.price * amount}
+              disabled={balance < currentAsset.price * amount || amount <= 0}
               onClick={handleSubmit}
             >
               Comprar
@@ -185,7 +185,7 @@ export default function Order() {
               type="submit"
               variant="contained"
               id="sell"
-              disabled={amount > currentAsset.quantity}
+              disabled={amount > currentAsset.quantity || amount <= 0}
               onClick={handleSubmit}
             >
               Vender
