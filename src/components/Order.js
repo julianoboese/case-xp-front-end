@@ -118,7 +118,7 @@ export default function Order() {
             {currentAsset.price && formatMoney(currentAsset.price)}
           </Typography>
           <Typography
-            color={currentAsset.change >= 0 ? 'success' : 'error'}
+            color={currentAsset.change >= 0 ? '#66bb6a' : 'error'}
             display="inline-block"
             width="20%"
           >
