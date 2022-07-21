@@ -133,6 +133,7 @@ export default function Order() {
         id="order"
         label="Digite a quantidade"
         name="order"
+        inputProps={{ style: { textAlign: 'right' } }}
         onChange={(event) => setAmount(event.target.value)}
       />
       <Box sx={{
