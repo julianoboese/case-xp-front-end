@@ -62,7 +62,12 @@ export default function Account() {
         label="Digite o valor"
         name="account"
         inputProps={{ style: { textAlign: 'right' } }}
-        onChange={(event) => setAmount(event.target.value)}
+        value={amount}
+        onChange={(event) => {
+          if (!Number.isNaN(Number(event.target.value))) {
+            setAmount(Math.floor(event.target.value));
+          }
+        }}
       />
 
       <OperationBox>
