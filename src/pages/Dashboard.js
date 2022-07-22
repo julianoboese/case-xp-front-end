@@ -163,7 +163,7 @@ function DashboardContent() {
                   sx={{
                     maxHeight: 35,
                   }}
-                  alt="The house from the offer."
+                  alt="Logo da XP Investimentos"
                   src={logoXp}
                 />
                 <Box

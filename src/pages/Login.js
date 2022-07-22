@@ -94,11 +94,8 @@ export default function Login() {
       >
         <Box
           component="img"
-          sx={{
-            mb: 10,
-            maxHeight: 85,
-          }}
-          alt="The house from the offer."
+          sx={{ mb: 10, maxHeight: 85 }}
+          alt="Logo da XP Investimentos"
           src={logoXp}
         />
         <Typography component="h1" variant="h5">

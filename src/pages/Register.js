@@ -98,7 +98,7 @@ export default function Register() {
             mb: 10,
             maxHeight: 85,
           }}
-          alt="The house from the offer."
+          alt="Logo da XP Investimentos"
           src={logoXp}
         />
         <Typography component="h1" variant="h5">
