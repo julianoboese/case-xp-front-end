@@ -11,11 +11,11 @@ import Container from '@mui/material/Container';
 import { LoadingButton } from '@mui/lab';
 import isEmail from 'validator/lib/isEmail';
 import isByteLength from 'validator/lib/isByteLength';
-import { Alert, Grow } from '@mui/material';
 import logoXp from '../assets/logo-xp.png';
 import register from '../services/register';
 import getUser from '../services/user';
 import Footer from '../components/Footer';
+import ErrorMessage from '../components/ErrorMessage';
 import AppContext from '../context/AppContext';
 
 export default function Register() {
@@ -197,11 +197,7 @@ export default function Register() {
               Abrir conta
             </Button>
           )}
-          {errorMessage
-            && <Grow in={errorMessage}>
-                <Alert variant='filled' severity="error" sx={{ m: 1 }}>{errorMessage}</Alert>
-              </Grow>
-          }
+          <ErrorMessage />
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="/" variant="body2">

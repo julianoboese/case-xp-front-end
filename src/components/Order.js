@@ -1,11 +1,9 @@
 import { LoadingButton } from '@mui/lab';
 import {
-  Alert,
   Box,
   Button,
   Card,
   CardContent,
-  Grow,
   Paper,
   TextField,
   Typography,
@@ -15,6 +13,7 @@ import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import { buyAsset, sellAsset } from '../services/order';
 import { formatChange, formatMoney } from '../utils/format';
+import ErrorMessage from './ErrorMessage';
 import OperationBox from './OperationBox';
 import Title from './Title';
 
@@ -25,7 +24,6 @@ export default function Order() {
     setCurrentAsset,
     setCurrentOperation,
     balance,
-    errorMessage,
     setErrorMessage,
   } = useContext(AppContext);
 
@@ -203,11 +201,7 @@ export default function Order() {
           </>
         )}
       </OperationBox>
-      {errorMessage
-        && <Grow in={errorMessage}>
-            <Alert variant='filled' severity="error" sx={{ m: 1 }}>{errorMessage}</Alert>
-          </Grow>
-      }
+      <ErrorMessage />
     </Paper>
   );
 }

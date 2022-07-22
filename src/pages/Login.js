@@ -10,14 +10,14 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { Alert, LoadingButton } from '@mui/lab';
+import { LoadingButton } from '@mui/lab';
 import isEmail from 'validator/lib/isEmail';
 import isByteLength from 'validator/lib/isByteLength';
-import { Grow } from '@mui/material';
 import logoXp from '../assets/logo-xp.png';
 import login from '../services/login';
 import getUser from '../services/user';
 import Footer from '../components/Footer';
+import ErrorMessage from '../components/ErrorMessage';
 import AppContext from '../context/AppContext';
 
 export default function Login() {
@@ -169,13 +169,7 @@ export default function Login() {
               Entrar
             </Button>
           )}
-          {errorMessage && (
-            <Grow in={errorMessage}>
-              <Alert variant="filled" severity="error" sx={{ m: 1 }}>
-                {errorMessage}
-              </Alert>
-            </Grow>
-          )}
+          <ErrorMessage />
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="/register" variant="body2">

@@ -1,10 +1,11 @@
 import { LoadingButton } from '@mui/lab';
-import { Alert, Button, Grow, Paper, TextField, Typography } from '@mui/material';
+import { Button, Paper, TextField, Typography } from '@mui/material';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import { deposit, withdraw } from '../services/account';
 import { formatMoney } from '../utils/format';
+import ErrorMessage from './ErrorMessage';
 import OperationBox from './OperationBox';
 
 export default function Account() {
@@ -13,7 +14,6 @@ export default function Account() {
     balance,
     setBalance,
     setCurrentOperation,
-    errorMessage,
     setErrorMessage,
   } = useContext(AppContext);
 
@@ -105,11 +105,7 @@ export default function Account() {
           </>
         )}
       </OperationBox>
-      {errorMessage
-        && <Grow in={errorMessage}>
-            <Alert variant='filled' severity="error" sx={{ m: 1 }}>{errorMessage}</Alert>
-          </Grow>
-      }
+      <ErrorMessage />
     </Paper>
   );
 }
