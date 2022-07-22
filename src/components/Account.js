@@ -1,5 +1,4 @@
-import { LoadingButton } from '@mui/lab';
-import { Button, Paper, TextField, Typography } from '@mui/material';
+import { Paper, TextField, Typography } from '@mui/material';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
@@ -7,6 +6,7 @@ import { deposit, withdraw } from '../services/account';
 import { formatMoney } from '../utils/format';
 import ErrorMessage from './ErrorMessage';
 import OperationBox from './OperationBox';
+import OperationButtons from './OperationButtons';
 
 export default function Account() {
   const {
@@ -75,36 +75,16 @@ export default function Account() {
           }
         }}
       />
-
-      <OperationBox>
-        {isLoading ? (
-          <LoadingButton loading fullWidth variant="contained">
-            Confirmando...
-          </LoadingButton>
-        ) : (
-          <>
-            <Button
-              type="submit"
-              variant="contained"
-              id="deposit"
-              disabled={amount <= 0}
-              onClick={handleSubmit}
-            >
-              Depositar
-            </Button>
-            <Button
-              color="neutral"
-              type="submit"
-              variant="contained"
-              id="withdraw"
-              disabled={balance < amount || amount <= 0}
-              onClick={handleSubmit}
-            >
-              Retirar
-            </Button>
-          </>
-        )}
-      </OperationBox>
+      <OperationButtons
+        isLoading={isLoading}
+        firstId="deposit"
+        firstText="Depositar"
+        firstDisabled={amount <= 0}
+        secondId="withdraw"
+        secondText="Retirar"
+        secondDisabled={balance < amount || amount <= 0}
+        handleSubmit={handleSubmit}
+      />
       <ErrorMessage />
     </Paper>
   );

@@ -1,7 +1,5 @@
-import { LoadingButton } from '@mui/lab';
 import {
   Box,
-  Button,
   Card,
   CardContent,
   Paper,
@@ -15,6 +13,7 @@ import { buyAsset, sellAsset } from '../services/order';
 import { formatChange, formatMoney } from '../utils/format';
 import ErrorMessage from './ErrorMessage';
 import OperationBox from './OperationBox';
+import OperationButtons from './OperationButtons';
 import Title from './Title';
 
 export default function Order() {
@@ -38,9 +37,17 @@ export default function Order() {
 
     let response;
     if (event.target.id === 'buy') {
-      response = await buyAsset(currentAsset.assetId, Number(amount), currentAsset.price);
+      response = await buyAsset(
+        currentAsset.assetId,
+        amount,
+        currentAsset.price,
+      );
     } else {
-      response = await sellAsset(currentAsset.assetId, Number(amount), currentAsset.price);
+      response = await sellAsset(
+        currentAsset.assetId,
+        amount,
+        currentAsset.price,
+      );
     }
 
     if (response.status === 401) {
@@ -106,11 +113,7 @@ export default function Order() {
         }}
       >
         <CardContent sx={{ py: 1, flexGrow: 1 }}>
-          <Typography
-            color="primary"
-            display="inline-block"
-            width="30%"
-          >
+          <Typography color="primary" display="inline-block" width="30%">
             {currentAsset.ticker}
           </Typography>
           <Typography display="inline-block" width="20%">
@@ -143,24 +146,28 @@ export default function Order() {
           }
         }}
       />
-      <Box sx={{
-        mt: 1,
-        px: 1,
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-      }}>
+      <Box
+        sx={{
+          mt: 1,
+          px: 1,
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
         <Typography>Poder de compra:</Typography>
         <Typography color={balance < currentAsset.price * amount && 'error'}>
           {formatMoney(balance)}
         </Typography>
       </Box>
-      <Box sx={{
-        px: 1,
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-      }}>
+      <Box
+        sx={{
+          px: 1,
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
         <Typography>Poder de venda:</Typography>
         <Typography color={amount > currentAsset.quantity && 'error'}>
           {formatMoney(currentAsset.quantity * currentAsset.price)}
@@ -168,39 +175,20 @@ export default function Order() {
       </Box>
       <OperationBox>
         <Typography>Valor total da ordem:</Typography>
-        <Typography variant="h5" color='primary' sx={{ fontWeight: 'bold' }}>
+        <Typography variant="h5" color="primary" sx={{ fontWeight: 'bold' }}>
           {formatMoney(currentAsset.price * amount || 0)}
         </Typography>
       </OperationBox>
-      <OperationBox>
-        {isLoading ? (
-          <LoadingButton loading fullWidth variant="contained">
-            Confirmando...
-          </LoadingButton>
-        ) : (
-          <>
-            <Button
-              type="submit"
-              variant="contained"
-              id="buy"
-              disabled={balance < currentAsset.price * amount || amount <= 0}
-              onClick={handleSubmit}
-            >
-              Comprar
-            </Button>
-            <Button
-              color="neutral"
-              type="submit"
-              variant="contained"
-              id="sell"
-              disabled={amount > currentAsset.quantity || amount <= 0}
-              onClick={handleSubmit}
-            >
-              Vender
-            </Button>
-          </>
-        )}
-      </OperationBox>
+      <OperationButtons
+        isLoading={isLoading}
+        firstId="buy"
+        firstText="Comprar"
+        firstDisabled={balance < currentAsset.price * amount || amount <= 0}
+        secondId="sell"
+        secondText="Vender"
+        secondDisabled={amount > currentAsset.quantity || amount <= 0}
+        handleSubmit={handleSubmit}
+      />
       <ErrorMessage />
     </Paper>
   );
