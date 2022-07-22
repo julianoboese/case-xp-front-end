@@ -30,6 +30,15 @@ export default function Login() {
 
   const history = useHistory();
 
+  const retrieveLastUser = () => {
+    const lastUser = localStorage.getItem('lastUser');
+    if (lastUser) {
+      console.log(JSON.parse(lastUser).email);
+      setEmail(JSON.parse(lastUser).email);
+      setRemember(true);
+    }
+  };
+
   useEffect(() => {
     async function fetchUser() {
       const response = await getUser();
@@ -40,13 +49,7 @@ export default function Login() {
     }
 
     fetchUser();
-
-    const lastUser = localStorage.getItem('lastUser');
-    if (lastUser) {
-      console.log(JSON.parse(lastUser).email);
-      setEmail(JSON.parse(lastUser).email);
-      setRemember(true);
-    }
+    retrieveLastUser();
   }, [history]);
 
   const handleEmailValidation = () => {
@@ -63,22 +66,24 @@ export default function Login() {
 
   const handleButtonDisabled = () => !isEmail(email) || !isByteLength(password, { min: 8 });
 
+  const rememberLastUser = () => {
+    if (remember) {
+      localStorage.setItem(
+        'lastUser',
+        JSON.stringify({ email, datetime: new Date() }),
+      );
+    } else {
+      localStorage.removeItem('lastUser');
+    }
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
     const { token, message } = await login({ email, password });
     if (token) {
       sessionStorage.setItem('token', token);
-
-      if (remember) {
-        localStorage.setItem(
-          'lastUser',
-          JSON.stringify({ email, datetime: new Date() }),
-        );
-      } else {
-        localStorage.removeItem('lastUser');
-      }
-
+      rememberLastUser();
       return history.push('/dashboard');
     }
     setIsLoading(false);
