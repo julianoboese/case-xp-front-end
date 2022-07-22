@@ -21,8 +21,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { useHistory } from 'react-router-dom';
 import MyAssets from '../components/MyAssets';
-// import Deposits from '../components/Deposits';
-// import Orders from '../components/Orders';
 import ListItems from '../components/ListItems';
 import AppContext from '../context/AppContext';
 import Account from '../components/Account';
@@ -207,7 +205,7 @@ function DashboardContent() {
             open={isActionOpen}
             onClose={() => setIsActionOpen(false)}
           >
-            {/* Tarefas de conta e investimento */}
+            {/* Operações de conta e investimento */}
             <Box sx={{ width: currentOperation === 'order' ? 500 : 420 }}>
               <Toolbar />
               {currentOperation === 'account' && <Account />}
@@ -226,7 +224,6 @@ function DashboardContent() {
             <Toolbar />
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
               <Grid container spacing={3}>
-                {/* Assets */}
                 <Grid item xs={12}>
                   <Paper
                     sx={{
@@ -238,7 +235,6 @@ function DashboardContent() {
                     <MyAssets />
                   </Paper>
                 </Grid>
-                {/* Recent Orders */}
                 <Grid item xs={12} md={12} lg={12}>
                   <Paper
                     sx={{ p: 2, display: 'flex', flexDirection: 'column' }}
@@ -246,19 +242,6 @@ function DashboardContent() {
                     <AllAssets />
                   </Paper>
                 </Grid>
-                {/* Recent Deposits */}
-                {/* <Grid item xs={12} md={4} lg={3}>
-                  <Paper
-                    sx={{
-                      p: 2,
-                      display: 'flex',
-                      flexDirection: 'column',
-                      height: 240,
-                    }}
-                  >
-                    <Deposits />
-                  </Paper>
-                </Grid> */}
               </Grid>
               <Footer />
             </Container>
