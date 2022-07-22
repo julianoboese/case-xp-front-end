@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Alert, Grow } from '@mui/material';
-import AppContext from '../context/AppContext';
+import AppContext from '../../context/AppContext';
 
 function ErrorMessage() {
   const { errorMessage } = useContext(AppContext);

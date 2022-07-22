@@ -5,7 +5,7 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { Paper } from '@mui/material';
-import Title from './Title';
+import Title from './shared/Title';
 import AppContext from '../context/AppContext';
 import { formatMoney } from '../utils/format';
 

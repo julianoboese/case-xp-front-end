@@ -13,8 +13,8 @@ import AppContext from '../context/AppContext';
 import { getBalance } from '../services/account';
 import { getAsset, getAssets } from '../services/assets';
 import { formatChange, formatMoney } from '../utils/format';
-import IsLoadingBox from './IsLoadingBox';
-import Title from './Title';
+import IsLoadingBox from './shared/IsLoadingBox';
+import Title from './shared/Title';
 
 export default function MyAssets() {
   const {

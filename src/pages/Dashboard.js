@@ -25,7 +25,7 @@ import getUser from '../services/user';
 import logoXp from '../assets/logo-xp.png';
 import Order from '../components/Order';
 import AllAssets from '../components/AllAssets';
-import Footer from '../components/Footer';
+import Footer from '../components/shared/Footer';
 import { AppBar, LeftDrawer } from '../components/DashLayout';
 import Operations from '../components/Operations';
 

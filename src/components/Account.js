@@ -4,9 +4,9 @@ import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import { deposit, withdraw } from '../services/account';
 import { formatMoney } from '../utils/format';
-import ErrorMessage from './ErrorMessage';
-import OperationBox from './OperationBox';
-import OperationButtons from './OperationButtons';
+import ErrorMessage from './shared/ErrorMessage';
+import OperationBox from './shared/OperationBox';
+import OperationButtons from './shared/OperationButtons';
 
 export default function Account() {
   const {

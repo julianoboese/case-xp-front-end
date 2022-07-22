@@ -16,9 +16,9 @@ import isByteLength from 'validator/lib/isByteLength';
 import logoXp from '../assets/logo-xp.png';
 import login from '../services/login';
 import getUser from '../services/user';
-import Footer from '../components/Footer';
-import SubmitButton from '../components/SubmitButton';
-import ErrorMessage from '../components/ErrorMessage';
+import Footer from '../components/shared/Footer';
+import SubmitButton from '../components/shared/SubmitButton';
+import ErrorMessage from '../components/shared/ErrorMessage';
 import AppContext from '../context/AppContext';
 
 export default function Login() {

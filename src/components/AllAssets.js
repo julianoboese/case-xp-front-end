@@ -13,8 +13,8 @@ import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import { getBalance } from '../services/account';
 import { getAsset, getAllAssets } from '../services/assets';
-import IsLoadingBox from './IsLoadingBox';
-import Title from './Title';
+import IsLoadingBox from './shared/IsLoadingBox';
+import Title from './shared/Title';
 
 export default function AllAssets() {
   const {

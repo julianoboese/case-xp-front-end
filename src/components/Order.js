@@ -4,10 +4,10 @@ import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import { buyAsset, sellAsset } from '../services/order';
 import { formatChange, formatMoney } from '../utils/format';
-import ErrorMessage from './ErrorMessage';
-import OperationBox from './OperationBox';
-import OperationButtons from './OperationButtons';
-import Title from './Title';
+import ErrorMessage from './shared/ErrorMessage';
+import OperationBox from './shared/OperationBox';
+import OperationButtons from './shared/OperationButtons';
+import Title from './shared/Title';
 
 export default function Order() {
   const {
