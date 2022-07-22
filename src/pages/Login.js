@@ -1,6 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { CssBaseline, Container, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography } from '@mui/material';
+import {
+  CssBaseline,
+  Container,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Link,
+  Grid,
+  Box,
+  Typography,
+} from '@mui/material';
 import isEmail from 'validator/lib/isEmail';
 import isByteLength from 'validator/lib/isByteLength';
 import logoXp from '../assets/logo-xp.png';
@@ -147,7 +157,7 @@ export default function Login() {
           />
           <SubmitButton
             isLoading={isLoading}
-            text='Entrar'
+            text="Entrar"
             handleButtonDisabled={handleButtonDisabled}
           />
           <ErrorMessage />

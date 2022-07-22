@@ -1,6 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { CssBaseline, Container, TextField, Link, Grid, Box, Typography } from '@mui/material';
+import {
+  CssBaseline,
+  Container,
+  TextField,
+  Link,
+  Grid,
+  Box,
+  Typography,
+} from '@mui/material';
 import isEmail from 'validator/lib/isEmail';
 import isByteLength from 'validator/lib/isByteLength';
 import logoXp from '../assets/logo-xp.png';
