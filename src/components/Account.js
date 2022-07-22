@@ -8,11 +8,17 @@ import { formatMoney } from '../utils/format';
 import OperationBox from './OperationBox';
 
 export default function Account() {
-  const { setIsActionOpen, balance, setBalance, setCurrentOperation } = useContext(AppContext);
+  const {
+    setIsActionOpen,
+    balance,
+    setBalance,
+    setCurrentOperation,
+    errorMessage,
+    setErrorMessage,
+  } = useContext(AppContext);
 
   const [amount, setAmount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
 
   const history = useHistory();
 

@@ -20,13 +20,17 @@ import Title from './Title';
 
 export default function Order() {
   const {
-    setIsActionOpen, currentAsset, setCurrentAsset,
-    setCurrentOperation, balance,
+    setIsActionOpen,
+    currentAsset,
+    setCurrentAsset,
+    setCurrentOperation,
+    balance,
+    errorMessage,
+    setErrorMessage,
   } = useContext(AppContext);
 
   const [amount, setAmount] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
 
   const history = useHistory();
 

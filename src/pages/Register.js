@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,8 +16,11 @@ import logoXp from '../assets/logo-xp.png';
 import register from '../services/register';
 import getUser from '../services/user';
 import Footer from '../components/Footer';
+import AppContext from '../context/AppContext';
 
 export default function Register() {
+  const { setErrorMessage } = useContext(AppContext);
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -29,7 +32,6 @@ export default function Register() {
     email: true,
     password: true,
   });
-  const [errorMessage, setErrorMessage] = useState('');
 
   const history = useHistory();
 

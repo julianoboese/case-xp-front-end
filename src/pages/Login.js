@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -18,14 +18,16 @@ import logoXp from '../assets/logo-xp.png';
 import login from '../services/login';
 import getUser from '../services/user';
 import Footer from '../components/Footer';
+import AppContext from '../context/AppContext';
 
 export default function Login() {
+  const { setErrorMessage } = useContext(AppContext);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [remember, setRemember] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [validation, setValidation] = useState({ email: true, password: true });
-  const [errorMessage, setErrorMessage] = useState('');
 
   const history = useHistory();
 

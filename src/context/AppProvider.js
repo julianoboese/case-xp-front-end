@@ -8,6 +8,7 @@ function AppProvider({ children }) {
   const [balance, setBalance] = useState(0);
   const [currentAsset, setCurrentAsset] = useState({});
   const [currentOperation, setCurrentOperation] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   return (
     <AppContext.Provider
@@ -22,6 +23,8 @@ function AppProvider({ children }) {
         setCurrentAsset,
         currentOperation,
         setCurrentOperation,
+        errorMessage,
+        setErrorMessage,
       }}
     >
       {children}
