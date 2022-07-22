@@ -43,6 +43,7 @@ export default function Login() {
     if (lastUser) {
       console.log(JSON.parse(lastUser).email);
       setEmail(JSON.parse(lastUser).email);
+      setRemember(true);
     }
   }, [history]);
 
@@ -111,7 +112,7 @@ export default function Login() {
             id="email"
             label="E-mail"
             name="email"
-            defaultValue={JSON.parse(localStorage.getItem('lastUser'))?.email || ''}
+            value={email}
             error={!validation.email}
             helperText={!validation.email && 'Email inválido'}
             onFocus={() => setValidation({ ...validation, email: true })}
@@ -136,7 +137,7 @@ export default function Login() {
           />
           <FormControlLabel
             control={
-              <Checkbox name="remember" color="primary" onChange={(event) => setRemember(event.target.checked)} />
+              <Checkbox name="remember" checked={remember} color="primary" onChange={(event) => setRemember(event.target.checked)} />
             }
             label="Lembrar e-mail"
           />
