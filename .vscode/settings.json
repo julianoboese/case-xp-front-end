@@ -9,6 +9,7 @@
     "assets",
     "utils",
     "order",
-    "services"
+    "services",
+    "operations"
   ]
 }

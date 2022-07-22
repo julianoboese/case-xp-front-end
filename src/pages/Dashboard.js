@@ -27,6 +27,7 @@ import Order from '../components/Order';
 import AllAssets from '../components/AllAssets';
 import Footer from '../components/Footer';
 import { AppBar, LeftDrawer } from '../components/DashLayout';
+import Operations from '../components/Operations';
 
 export default function Dashboard() {
   const { isActionOpen, setIsActionOpen, user, setUser, currentOperation } = useContext(AppContext);
@@ -83,8 +84,7 @@ export default function Dashboard() {
         <>
           <CssBaseline />
           <AppBar position="absolute" open={isOperationOpen}>
-            <Toolbar sx={{ pr: '24px' }}
-            >
+            <Toolbar sx={{ pr: '24px' }}>
               <IconButton
                 edge="start"
                 color="inherit"
@@ -153,10 +153,16 @@ export default function Dashboard() {
             onClose={() => setIsActionOpen(false)}
           >
             {/* Operações de conta e investimentos */}
-            <Box sx={{ width: currentOperation === 'order' ? 500 : 420 }}>
+            <Box
+              sx={{
+                width: currentOperation === 'operations' ? 850 : 500,
+                overflowY: 'hidden',
+              }}
+            >
               <Toolbar />
               {currentOperation === 'account' && <Account />}
               {currentOperation === 'order' && <Order />}
+              {currentOperation === 'operations' && <Operations />}
             </Box>
           </Drawer>
           <Box
