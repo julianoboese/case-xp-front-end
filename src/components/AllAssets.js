@@ -18,8 +18,10 @@ import Title from './Title';
 
 export default function AllAssets() {
   const {
-    setIsActionOpen, setCurrentAsset,
-    setCurrentOperation, setBalance,
+    setIsActionOpen,
+    setCurrentAsset,
+    setCurrentOperation,
+    setBalance,
   } = useContext(AppContext);
 
   const [allAssets, setAllAssets] = useState([]);
@@ -57,92 +59,112 @@ export default function AllAssets() {
   const handleFilterAssets = async (text) => {
     if (!text) return setAssetsFiltered(allAssets);
 
-    const filtered = allAssets.filter((asset) => (
-      asset.name.toLowerCase().includes(text.toLowerCase())
-      || asset.ticker.toLowerCase().includes(text.toLowerCase())
-    ))
+    const filtered = allAssets
+      .filter(
+        (asset) => asset.name.toLowerCase().includes(text.toLowerCase())
+          || asset.ticker.toLowerCase().includes(text.toLowerCase()),
+      )
       .sort((a, b) => a.ticker.localeCompare(b.ticker));
 
     return setAssetsFiltered(filtered);
   };
 
+  if (isLoading) {
+    return (
+      <Box
+        component="main"
+        sx={{
+          backgroundColor: (theme) => theme.palette.grey[900],
+          height: '250px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <CircularProgress color="primary" />
+      </Box>
+    );
+  }
+
   return (
     <>
-      {isLoading ? (
-        <Box
-          component="main"
-          sx={{
-            backgroundColor: (theme) => theme.palette.grey[900],
-            flexGrow: 1,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            overflow: 'auto',
-          }}
-        >
-          <CircularProgress color="primary" />
-        </Box>
-      ) : (
-        <>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-            <Title>Ativos disponíveis</Title>
-            <TextField
-              size="small"
-              margin="normal"
-              id="assets"
-              label="Busque um ativo"
-              name="assets"
-              onChange={(event) => handleFilterAssets(event.target.value)}
-            />
-          </Box>
-          <Box
-            sx={{
-              backgroundColor: (theme) => theme.palette.grey[900],
-              px: 2,
-              flexGrow: 1,
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'flex-start',
-              alignItems: 'center',
-            }}
-          >
-            <Grid container columnSpacing={2} rowSpacing={1} sx={{ py: 1 }}>
-            {assetsFiltered.filter((_asset, index) => index < 16)
-              .sort((a, b) => a.assetId - b.assetId).map((asset) => (
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'flex-start',
+        }}
+      >
+        <Title>Sugestões de ativos</Title>
+        <TextField
+          size="small"
+          margin="normal"
+          id="assets"
+          label="Busque um ativo"
+          name="assets"
+          onChange={(event) => handleFilterAssets(event.target.value)}
+        />
+      </Box>
+      <Box
+        sx={{
+          backgroundColor: (theme) => theme.palette.grey[900],
+          px: 2,
+          flexGrow: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+        }}
+      >
+        <Grid container columnSpacing={2} rowSpacing={1} sx={{ py: 1 }}>
+          {assetsFiltered
+            .filter((_asset, index) => index < 16)
+            .sort((a, b) => a.assetId - b.assetId)
+            .map((asset) => (
               <Grid key={asset.ticker} item xs={3}>
-              <Card
-                sx={{
-                  bgcolor: (theme) => theme.palette.grey[900],
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  width: '100%',
-                }}
-              >
-                <CardContent sx={{ py: 1, flexGrow: 1, maxHeight: '60px', overflow: 'hidden' }}>
-                  <Typography
-                    variant="h6"
-                    color="primary"
-                    display="block"
+                <Card
+                  sx={{
+                    bgcolor: (theme) => theme.palette.grey[900],
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    width: '100%',
+                  }}
+                >
+                  <CardContent
+                    sx={{
+                      py: 1,
+                      flexGrow: 1,
+                      maxHeight: '60px',
+                      overflow: 'hidden',
+                    }}
                   >
-                    {asset.ticker}
-                  </Typography>
-                  <Typography variant="h6" display="inline-block" noWrap sx={{ width: '100%' }}>
-                    {asset.name.slice(0, 19)}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button size="small" variant='contained'
-                    sx={{ fontSize: '0.6rem', fontWeight: 'bold' }} onClick={() => handleGetAsset(asset.id)}>
-                    Negociar
-                  </Button>
-                </CardActions>
-              </Card>
+                    <Typography variant="h6" color="primary" display="block">
+                      {asset.ticker}
+                    </Typography>
+                    <Typography
+                      variant="h6"
+                      display="inline-block"
+                      noWrap
+                      sx={{ width: '100%' }}
+                    >
+                      {asset.name.slice(0, 19)}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button
+                      size="small"
+                      variant="contained"
+                      sx={{ fontSize: '0.6rem', fontWeight: 'bold' }}
+                      onClick={() => handleGetAsset(asset.id)}
+                    >
+                      Negociar
+                    </Button>
+                  </CardActions>
+                </Card>
               </Grid>
-              ))}
-            </Grid>
-          </Box>
-        </>
-      )}
+            ))}
+        </Grid>
+      </Box>
     </>
   );
 }
