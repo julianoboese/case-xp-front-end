@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -10,13 +9,13 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { LoadingButton } from '@mui/lab';
 import isEmail from 'validator/lib/isEmail';
 import isByteLength from 'validator/lib/isByteLength';
 import logoXp from '../assets/logo-xp.png';
 import login from '../services/login';
 import getUser from '../services/user';
 import Footer from '../components/Footer';
+import SubmitButton from '../components/SubmitButton';
 import ErrorMessage from '../components/ErrorMessage';
 import AppContext from '../context/AppContext';
 
@@ -149,26 +148,11 @@ export default function Login() {
             }
             label="Lembrar e-mail"
           />
-          {isLoading ? (
-            <LoadingButton
-              loading
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Entrar
-            </LoadingButton>
-          ) : (
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              disabled={handleButtonDisabled()}
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Entrar
-            </Button>
-          )}
+          <SubmitButton
+            isLoading={isLoading}
+            text='Entrar'
+            handleButtonDisabled={handleButtonDisabled}
+          />
           <ErrorMessage />
           <Grid container justifyContent="flex-end">
             <Grid item>

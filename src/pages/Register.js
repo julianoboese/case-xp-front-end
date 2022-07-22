@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
@@ -8,13 +7,13 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { LoadingButton } from '@mui/lab';
 import isEmail from 'validator/lib/isEmail';
 import isByteLength from 'validator/lib/isByteLength';
 import logoXp from '../assets/logo-xp.png';
 import register from '../services/register';
 import getUser from '../services/user';
 import Footer from '../components/Footer';
+import SubmitButton from '../components/SubmitButton';
 import ErrorMessage from '../components/ErrorMessage';
 import AppContext from '../context/AppContext';
 
@@ -59,12 +58,10 @@ export default function Register() {
     }
   };
 
-  const handleButtonDisabled = () => (
-    !isEmail(email)
-      || !isByteLength(password, { min: 8 })
-      || !isByteLength(firstName, { min: 2 })
-      || !isByteLength(lastName, { min: 2 })
-  );
+  const handleButtonDisabled = () => !isEmail(email)
+    || !isByteLength(password, { min: 8 })
+    || !isByteLength(firstName, { min: 2 })
+    || !isByteLength(lastName, { min: 2 });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -97,10 +94,7 @@ export default function Register() {
       >
         <Box
           component="img"
-          sx={{
-            mb: 10,
-            maxHeight: 85,
-          }}
+          sx={{ mb: 10, maxHeight: 85 }}
           alt="Logo da XP Investimentos"
           src={logoXp}
         />
@@ -177,26 +171,11 @@ export default function Register() {
               />
             </Grid>
           </Grid>
-          {isLoading ? (
-            <LoadingButton
-              loading
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Submit
-            </LoadingButton>
-          ) : (
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              disabled={handleButtonDisabled()}
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Abrir conta
-            </Button>
-          )}
+          <SubmitButton
+            isLoading={isLoading}
+            text="Abrir conta"
+            handleButtonDisabled={handleButtonDisabled}
+          />
           <ErrorMessage />
           <Grid container justifyContent="flex-end">
             <Grid item>
