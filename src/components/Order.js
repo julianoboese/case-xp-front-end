@@ -1,5 +1,4 @@
 import {
-  Box,
   Card,
   CardContent,
   Paper,
@@ -146,35 +145,20 @@ export default function Order() {
           }
         }}
       />
-      <Box
-        sx={{
-          mt: 1,
-          px: 1,
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
+      <OperationBox my={0}>
         <Typography>Poder de compra:</Typography>
         <Typography color={balance < currentAsset.price * amount && 'error'}>
           {formatMoney(balance)}
         </Typography>
-      </Box>
-      <Box
-        sx={{
-          px: 1,
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
+      </OperationBox>
+      <OperationBox my={0} >
         <Typography>Poder de venda:</Typography>
         <Typography color={amount > currentAsset.quantity && 'error'}>
           {formatMoney(currentAsset.quantity * currentAsset.price)}
         </Typography>
-      </Box>
+      </OperationBox>
       <OperationBox>
-        <Typography>Valor total da ordem:</Typography>
+        <Typography sx={{ fontWeight: 'bold' }} >Valor total da ordem:</Typography>
         <Typography variant="h5" color="primary" sx={{ fontWeight: 'bold' }}>
           {formatMoney(currentAsset.price * amount || 0)}
         </Typography>
