@@ -1,10 +1,4 @@
-import {
-  Card,
-  CardContent,
-  Paper,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Card, CardContent, Paper, TextField, Typography } from '@mui/material';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
@@ -151,14 +145,16 @@ export default function Order() {
           {formatMoney(balance)}
         </Typography>
       </OperationBox>
-      <OperationBox my={0} >
+      <OperationBox my={0}>
         <Typography>Poder de venda:</Typography>
         <Typography color={amount > currentAsset.quantity && 'error'}>
           {formatMoney(currentAsset.quantity * currentAsset.price)}
         </Typography>
       </OperationBox>
       <OperationBox>
-        <Typography sx={{ fontWeight: 'bold' }} >Valor total da ordem:</Typography>
+        <Typography sx={{ fontWeight: 'bold' }}>
+          Valor total da ordem:
+        </Typography>
         <Typography variant="h5" color="primary" sx={{ fontWeight: 'bold' }}>
           {formatMoney(currentAsset.price * amount || 0)}
         </Typography>
