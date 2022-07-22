@@ -17,6 +17,7 @@ import { Grow } from '@mui/material';
 import logoXp from '../assets/logo-xp.png';
 import login from '../services/login';
 import getUser from '../services/user';
+import Footer from '../components/Footer';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -69,7 +70,10 @@ export default function Login() {
       sessionStorage.setItem('token', token);
 
       if (remember) {
-        localStorage.setItem('lastUser', JSON.stringify({ email, datetime: new Date() }));
+        localStorage.setItem(
+          'lastUser',
+          JSON.stringify({ email, datetime: new Date() }),
+        );
       } else {
         localStorage.removeItem('lastUser');
       }
@@ -134,7 +138,12 @@ export default function Login() {
           />
           <FormControlLabel
             control={
-              <Checkbox name="remember" checked={remember} color="primary" onChange={(event) => setRemember(event.target.checked)} />
+              <Checkbox
+                name="remember"
+                checked={remember}
+                color="primary"
+                onChange={(event) => setRemember(event.target.checked)}
+              />
             }
             label="Lembrar e-mail"
           />
@@ -158,11 +167,13 @@ export default function Login() {
               Entrar
             </Button>
           )}
-          {errorMessage
-            && <Grow in={errorMessage}>
-                <Alert variant='filled' severity="error" sx={{ m: 1 }}>{errorMessage}</Alert>
-              </Grow>
-          }
+          {errorMessage && (
+            <Grow in={errorMessage}>
+              <Alert variant="filled" severity="error" sx={{ m: 1 }}>
+                {errorMessage}
+              </Alert>
+            </Grow>
+          )}
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="/register" variant="body2">
@@ -172,25 +183,7 @@ export default function Login() {
           </Grid>
         </Box>
       </Box>
-      <Typography
-        variant="body2"
-        color="text.secondary"
-        align="center"
-        sx={{ mt: 5 }}
-      >
-        {'Projeto desenvolvido para o processo seletivo da XP Inc.'}
-      </Typography>
-      <Typography
-        variant="body2"
-        color="text.secondary"
-        align="center"
-        sx={{ mt: 1 }}
-      >
-        <Link color="inherit" href="https://github.com/julianoboese">
-          Juliano Boese
-        </Link>
-        , 2022
-      </Typography>
+      <Footer />
     </Container>
   );
 }

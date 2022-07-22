@@ -15,6 +15,7 @@ import { Alert, Grow } from '@mui/material';
 import logoXp from '../assets/logo-xp.png';
 import register from '../services/register';
 import getUser from '../services/user';
+import Footer from '../components/Footer';
 
 export default function Register() {
   const [firstName, setFirstName] = useState('');
@@ -208,25 +209,7 @@ export default function Register() {
           </Grid>
         </Box>
       </Box>
-      <Typography
-        variant="body2"
-        color="text.secondary"
-        align="center"
-        sx={{ mt: 5 }}
-      >
-        {'Projeto desenvolvido para o processo seletivo da XP Inc.'}
-      </Typography>
-      <Typography
-        variant="body2"
-        color="text.secondary"
-        align="center"
-        sx={{ mt: 1 }}
-      >
-        <Link color="inherit" href="https://github.com/julianoboese">
-          Juliano Boese
-        </Link>
-        , 2022
-      </Typography>
+      <Footer />
     </Container>
   );
 }

@@ -5,7 +5,6 @@ import {
   Container,
   Box,
   Paper,
-  Link,
   List,
   Toolbar,
   Drawer,
@@ -31,6 +30,7 @@ import getUser from '../services/user';
 import logoXp from '../assets/logo-xp.png';
 import Order from '../components/Order';
 import AllAssets from '../components/AllAssets';
+import Footer from '../components/Footer';
 
 const drawerWidth = 200;
 
@@ -260,25 +260,7 @@ function DashboardContent() {
                   </Paper>
                 </Grid> */}
               </Grid>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                align="center"
-                sx={{ mt: 5 }}
-              >
-                {'Projeto desenvolvido para o processo seletivo da XP Inc.'}
-              </Typography>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                align="center"
-                sx={{ mt: 1 }}
-              >
-                <Link color="inherit" href="https://github.com/julianoboese">
-                  Juliano Boese
-                </Link>
-                , 2022
-              </Typography>
+              <Footer />
             </Container>
           </Box>
         </>
