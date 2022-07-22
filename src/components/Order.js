@@ -24,7 +24,7 @@ export default function Order() {
     setCurrentOperation, balance,
   } = useContext(AppContext);
 
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -134,7 +134,12 @@ export default function Order() {
         label="Digite a quantidade"
         name="order"
         inputProps={{ style: { textAlign: 'right' } }}
-        onChange={(event) => setAmount(event.target.value)}
+        value={amount}
+        onChange={(event) => {
+          if (!Number.isNaN(Number(event.target.value))) {
+            setAmount(Math.floor(event.target.value));
+          }
+        }}
       />
       <Box sx={{
         mt: 1,
@@ -162,7 +167,7 @@ export default function Order() {
       <OperationBox>
         <Typography>Valor total da ordem:</Typography>
         <Typography variant="h5" color='primary' sx={{ fontWeight: 'bold' }}>
-          {formatMoney(currentAsset.price * amount)}
+          {formatMoney(currentAsset.price * amount || 0)}
         </Typography>
       </OperationBox>
       <OperationBox>
