@@ -1,4 +1,4 @@
-export const buyAsset = async (assetId, amount, price) => {
+export const buyAsset = async (assetId, quantity, price) => {
   const token = sessionStorage.getItem('token');
   const response = await fetch(
     `https://${process.env.REACT_APP_BACK_ENV}.herokuapp.com/order/buy`,
@@ -8,7 +8,7 @@ export const buyAsset = async (assetId, amount, price) => {
         'Content-Type': 'application/json',
         Authorization: token,
       },
-      body: JSON.stringify({ assetId, amount, price }),
+      body: JSON.stringify({ assetId, quantity, price }),
     },
   );
 
@@ -24,7 +24,7 @@ export const buyAsset = async (assetId, amount, price) => {
   return responseJson;
 };
 
-export const sellAsset = async (assetId, amount, price) => {
+export const sellAsset = async (assetId, quantity, price) => {
   const token = sessionStorage.getItem('token');
   const response = await fetch(
     `https://${process.env.REACT_APP_BACK_ENV}.herokuapp.com/order/sell`,
@@ -34,7 +34,7 @@ export const sellAsset = async (assetId, amount, price) => {
         'Content-Type': 'application/json',
         Authorization: token,
       },
-      body: JSON.stringify({ assetId, amount, price }),
+      body: JSON.stringify({ assetId, quantity, price }),
     },
   );
 
