@@ -4,7 +4,6 @@ import {
   Card,
   CardActions,
   CardContent,
-  CircularProgress,
   Grid,
   Typography,
 } from '@mui/material';
@@ -14,6 +13,7 @@ import AppContext from '../context/AppContext';
 import { getBalance } from '../services/account';
 import { getAsset, getAssets } from '../services/assets';
 import { formatChange, formatMoney } from '../utils/format';
+import IsLoadingBox from './IsLoadingBox';
 import Title from './Title';
 
 export default function MyAssets() {
@@ -56,22 +56,7 @@ export default function MyAssets() {
     setBalance(balance);
   };
 
-  if (isLoading) {
-    return (
-      <Box
-        component="main"
-        sx={{
-          backgroundColor: (theme) => theme.palette.grey[900],
-          height: '250px',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <CircularProgress color="primary" />
-      </Box>
-    );
-  }
+  if (isLoading) return <IsLoadingBox />;
 
   return (
     <>

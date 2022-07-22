@@ -4,7 +4,6 @@ import {
   Card,
   CardActions,
   CardContent,
-  CircularProgress,
   Grid,
   TextField,
   Typography,
@@ -14,6 +13,7 @@ import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import { getBalance } from '../services/account';
 import { getAsset, getAllAssets } from '../services/assets';
+import IsLoadingBox from './IsLoadingBox';
 import Title from './Title';
 
 export default function AllAssets() {
@@ -69,22 +69,7 @@ export default function AllAssets() {
     return setAssetsFiltered(filtered);
   };
 
-  if (isLoading) {
-    return (
-      <Box
-        component="main"
-        sx={{
-          backgroundColor: (theme) => theme.palette.grey[900],
-          height: '250px',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <CircularProgress color="primary" />
-      </Box>
-    );
-  }
+  if (isLoading) return <IsLoadingBox />;
 
   return (
     <>
