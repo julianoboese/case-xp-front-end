@@ -1,32 +1,26 @@
-import { LoadingButton } from '@mui/lab';
-import {
-  Alert,
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Grow,
-  Paper,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Card, CardContent, Paper, TextField, Typography } from '@mui/material';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import { buyAsset, sellAsset } from '../services/order';
 import { formatChange, formatMoney } from '../utils/format';
-import OperationBox from './OperationBox';
-import Title from './Title';
+import ErrorMessage from './shared/ErrorMessage';
+import OperationBox from './shared/OperationBox';
+import OperationButtons from './shared/OperationButtons';
+import Title from './shared/Title';
 
 export default function Order() {
   const {
-    setIsActionOpen, currentAsset, setCurrentAsset,
-    setCurrentOperation, balance,
+    setIsActionOpen,
+    currentAsset,
+    setCurrentAsset,
+    setCurrentOperation,
+    balance,
+    setErrorMessage,
   } = useContext(AppContext);
 
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
 
   const history = useHistory();
 
@@ -36,9 +30,17 @@ export default function Order() {
 
     let response;
     if (event.target.id === 'buy') {
-      response = await buyAsset(currentAsset.assetId, Number(amount), currentAsset.price);
+      response = await buyAsset(
+        currentAsset.assetId,
+        amount,
+        currentAsset.price,
+      );
     } else {
-      response = await sellAsset(currentAsset.assetId, Number(amount), currentAsset.price);
+      response = await sellAsset(
+        currentAsset.assetId,
+        amount,
+        currentAsset.price,
+      );
     }
 
     if (response.status === 401) {
@@ -104,11 +106,7 @@ export default function Order() {
         }}
       >
         <CardContent sx={{ py: 1, flexGrow: 1 }}>
-          <Typography
-            color="primary"
-            display="inline-block"
-            width="30%"
-          >
+          <Typography color="primary" display="inline-block" width="30%">
             {currentAsset.ticker}
           </Typography>
           <Typography display="inline-block" width="20%">
@@ -134,71 +132,44 @@ export default function Order() {
         label="Digite a quantidade"
         name="order"
         inputProps={{ style: { textAlign: 'right' } }}
-        onChange={(event) => setAmount(event.target.value)}
+        value={amount}
+        onChange={(event) => {
+          if (!Number.isNaN(Number(event.target.value))) {
+            setAmount(Math.floor(event.target.value));
+          }
+        }}
       />
-      <Box sx={{
-        mt: 1,
-        px: 1,
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-      }}>
+      <OperationBox my={0}>
         <Typography>Poder de compra:</Typography>
         <Typography color={balance < currentAsset.price * amount && 'error'}>
           {formatMoney(balance)}
         </Typography>
-      </Box>
-      <Box sx={{
-        px: 1,
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-      }}>
+      </OperationBox>
+      <OperationBox my={0}>
         <Typography>Poder de venda:</Typography>
         <Typography color={amount > currentAsset.quantity && 'error'}>
           {formatMoney(currentAsset.quantity * currentAsset.price)}
         </Typography>
-      </Box>
+      </OperationBox>
       <OperationBox>
-        <Typography>Valor total da ordem:</Typography>
-        <Typography variant="h5" color='primary' sx={{ fontWeight: 'bold' }}>
-          {formatMoney(currentAsset.price * amount)}
+        <Typography sx={{ fontWeight: 'bold' }}>
+          Valor total da ordem:
+        </Typography>
+        <Typography variant="h5" color="primary" sx={{ fontWeight: 'bold' }}>
+          {formatMoney(currentAsset.price * amount || 0)}
         </Typography>
       </OperationBox>
-      <OperationBox>
-        {isLoading ? (
-          <LoadingButton loading fullWidth variant="contained">
-            Confirmando...
-          </LoadingButton>
-        ) : (
-          <>
-            <Button
-              type="submit"
-              variant="contained"
-              id="buy"
-              disabled={balance < currentAsset.price * amount || amount <= 0}
-              onClick={handleSubmit}
-            >
-              Comprar
-            </Button>
-            <Button
-              color="neutral"
-              type="submit"
-              variant="contained"
-              id="sell"
-              disabled={amount > currentAsset.quantity || amount <= 0}
-              onClick={handleSubmit}
-            >
-              Vender
-            </Button>
-          </>
-        )}
-      </OperationBox>
-      {errorMessage
-        && <Grow in={errorMessage}>
-            <Alert variant='filled' severity="error" sx={{ m: 1 }}>{errorMessage}</Alert>
-          </Grow>
-      }
+      <OperationButtons
+        isLoading={isLoading}
+        firstId="buy"
+        firstText="Comprar"
+        firstDisabled={balance < currentAsset.price * amount || amount <= 0}
+        secondId="sell"
+        secondText="Vender"
+        secondDisabled={amount > currentAsset.quantity || amount <= 0}
+        handleSubmit={handleSubmit}
+      />
+      <ErrorMessage />
     </Paper>
   );
 }

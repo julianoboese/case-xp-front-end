@@ -1,22 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { LoadingButton } from '@mui/lab';
+import {
+  CssBaseline,
+  Container,
+  TextField,
+  Link,
+  Grid,
+  Box,
+  Typography,
+} from '@mui/material';
 import isEmail from 'validator/lib/isEmail';
 import isByteLength from 'validator/lib/isByteLength';
-import { Alert, Grow } from '@mui/material';
 import logoXp from '../assets/logo-xp.png';
 import register from '../services/register';
 import getUser from '../services/user';
+import Footer from '../components/shared/Footer';
+import SubmitButton from '../components/shared/SubmitButton';
+import ErrorMessage from '../components/shared/ErrorMessage';
+import AppContext from '../context/AppContext';
 
 export default function Register() {
+  const { setErrorMessage } = useContext(AppContext);
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -28,7 +33,6 @@ export default function Register() {
     email: true,
     password: true,
   });
-  const [errorMessage, setErrorMessage] = useState('');
 
   const history = useHistory();
 
@@ -56,12 +60,10 @@ export default function Register() {
     }
   };
 
-  const handleButtonDisabled = () => (
-    !isEmail(email)
-      || !isByteLength(password, { min: 8 })
-      || !isByteLength(firstName, { min: 2 })
-      || !isByteLength(lastName, { min: 2 })
-  );
+  const handleButtonDisabled = () => !isEmail(email)
+    || !isByteLength(password, { min: 8 })
+    || !isByteLength(firstName, { min: 2 })
+    || !isByteLength(lastName, { min: 2 });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -94,11 +96,8 @@ export default function Register() {
       >
         <Box
           component="img"
-          sx={{
-            mb: 10,
-            maxHeight: 85,
-          }}
-          alt="The house from the offer."
+          sx={{ mb: 10, maxHeight: 85 }}
+          alt="Logo da XP Investimentos"
           src={logoXp}
         />
         <Typography component="h1" variant="h5">
@@ -174,31 +173,12 @@ export default function Register() {
               />
             </Grid>
           </Grid>
-          {isLoading ? (
-            <LoadingButton
-              loading
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Submit
-            </LoadingButton>
-          ) : (
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              disabled={handleButtonDisabled()}
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Abrir conta
-            </Button>
-          )}
-          {errorMessage
-            && <Grow in={errorMessage}>
-                <Alert variant='filled' severity="error" sx={{ m: 1 }}>{errorMessage}</Alert>
-              </Grow>
-          }
+          <SubmitButton
+            isLoading={isLoading}
+            text="Abrir conta"
+            handleButtonDisabled={handleButtonDisabled}
+          />
+          <ErrorMessage />
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="/" variant="body2">
@@ -208,25 +188,7 @@ export default function Register() {
           </Grid>
         </Box>
       </Box>
-      <Typography
-        variant="body2"
-        color="text.secondary"
-        align="center"
-        sx={{ mt: 5 }}
-      >
-        {'Projeto desenvolvido para o processo seletivo da XP Inc.'}
-      </Typography>
-      <Typography
-        variant="body2"
-        color="text.secondary"
-        align="center"
-        sx={{ mt: 1 }}
-      >
-        <Link color="inherit" href="https://github.com/julianoboese">
-          Juliano Boese
-        </Link>
-        , 2022
-      </Typography>
+      <Footer />
     </Container>
   );
 }

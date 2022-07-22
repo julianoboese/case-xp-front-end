@@ -1,7 +1,7 @@
-const getUser = async () => {
+const getOperations = async () => {
   const token = sessionStorage.getItem('token');
   const response = await fetch(
-    `https://${process.env.REACT_APP_BACK_ENV}.herokuapp.com/user`,
+    `https://${process.env.REACT_APP_BACK_ENV}.herokuapp.com/operations`,
     {
       method: 'GET',
       headers: {
@@ -23,4 +23,4 @@ const getUser = async () => {
   return responseJson;
 };
 
-export default getUser;
+export default getOperations;

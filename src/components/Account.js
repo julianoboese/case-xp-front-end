@@ -1,18 +1,24 @@
-import { LoadingButton } from '@mui/lab';
-import { Alert, Button, Grow, Paper, TextField, Typography } from '@mui/material';
+import { Paper, TextField, Typography } from '@mui/material';
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import { deposit, withdraw } from '../services/account';
 import { formatMoney } from '../utils/format';
-import OperationBox from './OperationBox';
+import ErrorMessage from './shared/ErrorMessage';
+import OperationBox from './shared/OperationBox';
+import OperationButtons from './shared/OperationButtons';
 
 export default function Account() {
-  const { setIsActionOpen, balance, setBalance, setCurrentOperation } = useContext(AppContext);
+  const {
+    setIsActionOpen,
+    balance,
+    setBalance,
+    setCurrentOperation,
+    setErrorMessage,
+  } = useContext(AppContext);
 
   const [amount, setAmount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
 
   const history = useHistory();
 
@@ -62,43 +68,24 @@ export default function Account() {
         label="Digite o valor"
         name="account"
         inputProps={{ style: { textAlign: 'right' } }}
-        onChange={(event) => setAmount(event.target.value)}
+        value={amount}
+        onChange={(event) => {
+          if (!Number.isNaN(Number(event.target.value))) {
+            setAmount(Math.floor(event.target.value));
+          }
+        }}
       />
-
-      <OperationBox>
-        {isLoading ? (
-          <LoadingButton loading fullWidth variant="contained">
-            Confirmando...
-          </LoadingButton>
-        ) : (
-          <>
-            <Button
-              type="submit"
-              variant="contained"
-              id="deposit"
-              disabled={amount <= 0}
-              onClick={handleSubmit}
-            >
-              Depositar
-            </Button>
-            <Button
-              color="neutral"
-              type="submit"
-              variant="contained"
-              id="withdraw"
-              disabled={balance < amount || amount <= 0}
-              onClick={handleSubmit}
-            >
-              Retirar
-            </Button>
-          </>
-        )}
-      </OperationBox>
-      {errorMessage
-        && <Grow in={errorMessage}>
-            <Alert variant='filled' severity="error" sx={{ m: 1 }}>{errorMessage}</Alert>
-          </Grow>
-      }
+      <OperationButtons
+        isLoading={isLoading}
+        firstId="deposit"
+        firstText="Depositar"
+        firstDisabled={amount <= 0}
+        secondId="withdraw"
+        secondText="Retirar"
+        secondDisabled={balance < amount || amount <= 0}
+        handleSubmit={handleSubmit}
+      />
+      <ErrorMessage />
     </Paper>
   );
 }

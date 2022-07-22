@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   CssBaseline,
   Grid,
   Container,
   Box,
   Paper,
-  Link,
   List,
   Toolbar,
   Drawer,
@@ -15,15 +15,9 @@ import {
   CircularProgress,
   Button,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import MuiDrawer from '@mui/material/Drawer';
-import MuiAppBar from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { useHistory } from 'react-router-dom';
 import MyAssets from '../components/MyAssets';
-// import Deposits from '../components/Deposits';
-// import Orders from '../components/Orders';
 import ListItems from '../components/ListItems';
 import AppContext from '../context/AppContext';
 import Account from '../components/Account';
@@ -31,61 +25,18 @@ import getUser from '../services/user';
 import logoXp from '../assets/logo-xp.png';
 import Order from '../components/Order';
 import AllAssets from '../components/AllAssets';
+import Footer from '../components/shared/Footer';
+import { AppBar, LeftDrawer } from '../components/DashLayout';
+import Operations from '../components/Operations';
 
-const drawerWidth = 200;
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
-const LeftDrawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  '& .MuiDrawer-paper': {
-    position: 'relative',
-    whiteSpace: 'nowrap',
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    boxSizing: 'border-box',
-    ...(!open && {
-      overflowX: 'hidden',
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      width: theme.spacing(7),
-      [theme.breakpoints.up('sm')]: {
-        width: theme.spacing(9),
-      },
-    }),
-  },
-}));
-
-function DashboardContent() {
+export default function Dashboard() {
   const { isActionOpen, setIsActionOpen, user, setUser, currentOperation } = useContext(AppContext);
 
   const [isLoading, setIsLoading] = useState(true);
+  const [isOperationOpen, setIsOperationOpen] = useState(true);
 
-  const [isMenuOpen, setIsMenuOpen] = useState(true);
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+    setIsOperationOpen(!isOperationOpen);
   };
 
   const history = useHistory();
@@ -132,12 +83,8 @@ function DashboardContent() {
       ) : (
         <>
           <CssBaseline />
-          <AppBar position="absolute" open={isMenuOpen}>
-            <Toolbar
-              sx={{
-                pr: '24px', // keep right padding when drawer closed
-              }}
-            >
+          <AppBar position="absolute" open={isOperationOpen}>
+            <Toolbar sx={{ pr: '24px' }}>
               <IconButton
                 edge="start"
                 color="inherit"
@@ -145,7 +92,7 @@ function DashboardContent() {
                 onClick={toggleMenu}
                 sx={{
                   marginRight: '36px',
-                  ...(isMenuOpen && { display: 'none' }),
+                  ...(isOperationOpen && { display: 'none' }),
                 }}
               >
                 <MenuIcon />
@@ -160,10 +107,8 @@ function DashboardContent() {
               >
                 <Box
                   component="img"
-                  sx={{
-                    maxHeight: 35,
-                  }}
-                  alt="The house from the offer."
+                  sx={{ maxHeight: 35 }}
+                  alt="Logo da XP Investimentos"
                   src={logoXp}
                 />
                 <Box
@@ -184,7 +129,7 @@ function DashboardContent() {
               </Box>
             </Toolbar>
           </AppBar>
-          <LeftDrawer variant="permanent" open={isMenuOpen}>
+          <LeftDrawer variant="permanent" open={isOperationOpen}>
             <Toolbar
               sx={{
                 display: 'flex',
@@ -207,11 +152,17 @@ function DashboardContent() {
             open={isActionOpen}
             onClose={() => setIsActionOpen(false)}
           >
-            {/* Tarefas de conta e investimento */}
-            <Box sx={{ width: currentOperation === 'order' ? 500 : 420 }}>
+            {/* Operações de conta e investimentos */}
+            <Box
+              sx={{
+                width: currentOperation === 'operations' ? 850 : 500,
+                overflowY: 'hidden',
+              }}
+            >
               <Toolbar />
               {currentOperation === 'account' && <Account />}
               {currentOperation === 'order' && <Order />}
+              {currentOperation === 'operations' && <Operations />}
             </Box>
           </Drawer>
           <Box
@@ -226,7 +177,6 @@ function DashboardContent() {
             <Toolbar />
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
               <Grid container spacing={3}>
-                {/* Assets */}
                 <Grid item xs={12}>
                   <Paper
                     sx={{
@@ -238,7 +188,6 @@ function DashboardContent() {
                     <MyAssets />
                   </Paper>
                 </Grid>
-                {/* Recent Orders */}
                 <Grid item xs={12} md={12} lg={12}>
                   <Paper
                     sx={{ p: 2, display: 'flex', flexDirection: 'column' }}
@@ -246,47 +195,12 @@ function DashboardContent() {
                     <AllAssets />
                   </Paper>
                 </Grid>
-                {/* Recent Deposits */}
-                {/* <Grid item xs={12} md={4} lg={3}>
-                  <Paper
-                    sx={{
-                      p: 2,
-                      display: 'flex',
-                      flexDirection: 'column',
-                      height: 240,
-                    }}
-                  >
-                    <Deposits />
-                  </Paper>
-                </Grid> */}
               </Grid>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                align="center"
-                sx={{ mt: 5 }}
-              >
-                {'Projeto desenvolvido para o processo seletivo da XP Inc.'}
-              </Typography>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                align="center"
-                sx={{ mt: 1 }}
-              >
-                <Link color="inherit" href="https://github.com/julianoboese">
-                  Juliano Boese
-                </Link>
-                , 2022
-              </Typography>
+              <Footer />
             </Container>
           </Box>
         </>
       )}
     </Box>
   );
-}
-
-export default function Dashboard() {
-  return <DashboardContent />;
 }

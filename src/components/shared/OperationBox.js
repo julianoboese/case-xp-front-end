@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
 
-function OperationBox(props) {
+export default function OperationBox(props) {
   return (
     <Box
       sx={{
-        my: 2,
-        px: 1,
-        height: 240,
+        my: props.my,
+        px: props.px,
+        height: props.height,
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -19,8 +19,15 @@ function OperationBox(props) {
   );
 }
 
-OperationBox.propTypes = {
-  children: PropTypes.node,
+OperationBox.defaultProps = {
+  my: 2,
+  px: 1,
+  height: 240,
 };
 
-export default OperationBox;
+OperationBox.propTypes = {
+  my: PropTypes.number,
+  px: PropTypes.number,
+  height: PropTypes.number,
+  children: PropTypes.node,
+};
