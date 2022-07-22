@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   CssBaseline,
   Grid,
@@ -16,7 +17,6 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { useHistory } from 'react-router-dom';
 import MyAssets from '../components/MyAssets';
 import ListItems from '../components/ListItems';
 import AppContext from '../context/AppContext';
@@ -32,10 +32,10 @@ export default function Dashboard() {
   const { isActionOpen, setIsActionOpen, user, setUser, currentOperation } = useContext(AppContext);
 
   const [isLoading, setIsLoading] = useState(true);
+  const [isOperationOpen, setIsOperationOpen] = useState(true);
 
-  const [isMenuOpen, setIsMenuOpen] = useState(true);
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+    setIsOperationOpen(!isOperationOpen);
   };
 
   const history = useHistory();
@@ -82,11 +82,8 @@ export default function Dashboard() {
       ) : (
         <>
           <CssBaseline />
-          <AppBar position="absolute" open={isMenuOpen}>
-            <Toolbar
-              sx={{
-                pr: '24px', // keep right padding when drawer closed
-              }}
+          <AppBar position="absolute" open={isOperationOpen}>
+            <Toolbar sx={{ pr: '24px' }}
             >
               <IconButton
                 edge="start"
@@ -95,7 +92,7 @@ export default function Dashboard() {
                 onClick={toggleMenu}
                 sx={{
                   marginRight: '36px',
-                  ...(isMenuOpen && { display: 'none' }),
+                  ...(isOperationOpen && { display: 'none' }),
                 }}
               >
                 <MenuIcon />
@@ -110,9 +107,7 @@ export default function Dashboard() {
               >
                 <Box
                   component="img"
-                  sx={{
-                    maxHeight: 35,
-                  }}
+                  sx={{ maxHeight: 35 }}
                   alt="Logo da XP Investimentos"
                   src={logoXp}
                 />
@@ -134,7 +129,7 @@ export default function Dashboard() {
               </Box>
             </Toolbar>
           </AppBar>
-          <LeftDrawer variant="permanent" open={isMenuOpen}>
+          <LeftDrawer variant="permanent" open={isOperationOpen}>
             <Toolbar
               sx={{
                 display: 'flex',
@@ -157,7 +152,7 @@ export default function Dashboard() {
             open={isActionOpen}
             onClose={() => setIsActionOpen(false)}
           >
-            {/* Operações de conta e investimento */}
+            {/* Operações de conta e investimentos */}
             <Box sx={{ width: currentOperation === 'order' ? 500 : 420 }}>
               <Toolbar />
               {currentOperation === 'account' && <Account />}
