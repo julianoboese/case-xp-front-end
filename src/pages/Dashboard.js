@@ -14,9 +14,6 @@ import {
   CircularProgress,
   Button,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import MuiDrawer from '@mui/material/Drawer';
-import MuiAppBar from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { useHistory } from 'react-router-dom';
@@ -29,54 +26,9 @@ import logoXp from '../assets/logo-xp.png';
 import Order from '../components/Order';
 import AllAssets from '../components/AllAssets';
 import Footer from '../components/Footer';
+import { AppBar, LeftDrawer } from '../components/DashLayout';
 
-const drawerWidth = 200;
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
-const LeftDrawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  '& .MuiDrawer-paper': {
-    position: 'relative',
-    whiteSpace: 'nowrap',
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    boxSizing: 'border-box',
-    ...(!open && {
-      overflowX: 'hidden',
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      width: theme.spacing(7),
-      [theme.breakpoints.up('sm')]: {
-        width: theme.spacing(9),
-      },
-    }),
-  },
-}));
-
-function DashboardContent() {
+export default function Dashboard() {
   const { isActionOpen, setIsActionOpen, user, setUser, currentOperation } = useContext(AppContext);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -250,8 +202,4 @@ function DashboardContent() {
       )}
     </Box>
   );
-}
-
-export default function Dashboard() {
-  return <DashboardContent />;
 }
