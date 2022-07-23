@@ -1,70 +1,141 @@
-# Getting Started with Create React App
+# Case XP - Front-End <!-- omit in toc -->
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Projeto desenvolvido para o processo seletivo para Software Engineer I na XP Inc.
 
-## Available Scripts
+- Repo Back-End: https://github.com/julianoboese/case-xp-back-end
+- Back-End em produção: https://case-xp-back-end.herokuapp.com/api/
+- Repo Front-End: https://github.com/julianoboese/case-xp-front-end
+- Front-End em produção: https://case-xp-front-end.herokuapp.com
 
-In the project directory, you can run:
+<hr />
+<br />
 
-### `npm start`
+- [💻 Projeto](#-projeto)
+  - [Entregas](#entregas)
+- [📈 Requisitos e Front-End](#-requisitos-e-front-end)
+- [🚀 Tecnologias e Ferramentas](#-tecnologias-e-ferramentas)
+- [⚡ Rodando o projeto localmente](#-rodando-o-projeto-localmente)
+- [💬 Contatos](#-contatos)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<br />
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 💻 Projeto
 
-### `npm test`
+<br />
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Entregas
+1. **API RESTful** para uma aplicação de investimento em renda variável, com algumas funcionalidades de conta digital.
+2. **MVP** com Front-End conectado à API 100% funcional.
 
-### `npm run build`
+<br />
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 📈 Requisitos e Front-End
+Durante o desenvolvimento do projeto, **todos os requisitos** mínimos solicitados foram implementados, assim como **funcionalidades adicionais**.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### O Front-End foi dividido em 3 rotas: <!-- omit in toc -->
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+> Login (`/`)
 
-### `npm run eject`
+Implementações:
+- Validação dos campos (com o botão de "Entrar" ficando desabilitado até que os campos sejam válidos);
+- Salvamento da última pessoa usuária logada (somente caso ela marque "Lembrar e-mail");
+- Mensagens personalizadas de erro.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<img src="./public/prints/login.png" alt="Tela de login" />
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<br />
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+> Register (`/register`)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Implementações:
+- Validação dos campos (com o botão de "Abrir" ficando desabilitado até que os campos sejam válidos);
+- Mensagens personalizadas de erro.
 
-## Learn More
+<img src="./public/prints/register.png" alt="Tela de cadastro" />
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<br />
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+> Dashboard (`/dashboard`)
 
-### Code Splitting
+Funcionalidades:
+- Ativos que a pessoa usuária possui
+  - Informações detalhadas, como a quantidade, o preço real e a variação no dia;
+- Sugestões de ativos
+  - Mais de 500 ativos disponíveis;
+  - Campo para busca pelo nome ou ticker do ativo;
+- Compra / Venda de ativos
+  - Boleta com informações de poder de compra e venda;
+  - Botões desabilitados caso não seja possível realizar a operação;
+  - Campo de quantidade de ativos aceitando somente números inteiros;
+- Conta digital
+  - Exibição do saldo atual e campo para depósito ou retirada;
+  - Botões desabilitados caso não seja possível realizar a operação;
+- Extrato
+  - Tabela com dados detalhados de todas as operações realizadas na conta.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+<img src="./public/prints/dashboard.png" alt="Tela da aplicação" />
 
-### Analyzing the Bundle Size
+<br />
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 🚀 Tecnologias e Ferramentas
+O projeto foi desenvolvido com as seguintes tecnologias e ferramentas:
 
-### Making a Progressive Web App
+- Linguagem: **JavaScript**
+- Framework: **React**
+- Componentes: **Funcionais - Hooks**
+- Gerenciamento de estado: **Context API**
+- Estilização: **Material UI**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+<br />
 
-### Advanced Configuration
+## ⚡ Rodando o projeto localmente
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+O projeto pode ser executando localmente em um contêiner Docker. Para isso, basta:
+> Rodar o contêiner com
+```bash
+docker-compose up -d
+``` 
+> Acessar o terminal da aplicação com
+```bash
+docker exec -it case-xp bash
+``` 
+> Dentro da aplicação, instalar as dependências
+```bash
+npm install
+``` 
+> E iniciar a aplicação
+```bash
+npm start
+``` 
 
-### Deployment
+<br />
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+<details>
+  <summary><strong>Caso deseje executar o projeto direto em sua máquina</strong></summary><br />
 
-### `npm run build` fails to minify
+Nesse caso:
+- É necessário que sua máquina tenha o `node` instalado, preferencialmente na versão 16.
+- Configure em um arquivo `.env` as variáveis de ambiente indicadas no arquivo de exemplo.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Após isso, basta
+> Instalar as dependências
+```bash
+npm install
+``` 
+> E iniciar a aplicação
+```bash
+npm start
+``` 
+
+</details>
+
+
+<br />
+
+## 💬 Contatos
+
+<div align="center" style="display: inline_block">
+  <a href="https://julianoboese.github.io" target="_blank"><img height="28rem" src="https://img.shields.io/badge/my_portfolio-3fc337?style=for-the-badge" target="_blank"></a> 
+  <a href="https://www.linkedin.com/in/julianoboese" target="_blank"><img height="28rem" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a> 
+  <a href = "mailto:juliano.boese@gmail.com"><img height="28rem" src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
+</div>
