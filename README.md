@@ -95,7 +95,7 @@ docker-compose up -d
 ``` 
 > Acessar o terminal da aplicação com
 ```bash
-docker exec -it case-xp bash
+docker exec -it case-xp-front bash
 ``` 
 > Dentro da aplicação, instalar as dependências
 ```bash
