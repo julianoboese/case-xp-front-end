@@ -3,7 +3,7 @@
 Projeto desenvolvido para o processo seletivo para Software Engineer I na XP Inc.
 
 - Repo Back-End: https://github.com/julianoboese/case-xp-back-end
-- Back-End em produção: https://case-xp-back-end.herokuapp.com/api/
+- Back-End em produção: https://case-xp-back-end.herokuapp.com/api
 - Repo Front-End: https://github.com/julianoboese/case-xp-front-end
 - Front-End em produção: https://case-xp-front-end.herokuapp.com
 
@@ -20,8 +20,6 @@ Projeto desenvolvido para o processo seletivo para Software Engineer I na XP Inc
 <br />
 
 ## 💻 Projeto
-
-<br />
 
 ### Entregas
 1. **API RESTful** para uma aplicação de investimento em renda variável, com algumas funcionalidades de conta digital.
@@ -48,7 +46,7 @@ Implementações:
 > Register (`/register`)
 
 Implementações:
-- Validação dos campos (com o botão de "Abrir" ficando desabilitado até que os campos sejam válidos);
+- Validação dos campos (com o botão de "Abrir conta" ficando desabilitado até que os campos sejam válidos);
 - Mensagens personalizadas de erro.
 
 <img src="./public/prints/register.png" alt="Tela de cadastro" />
