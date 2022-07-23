@@ -3,7 +3,7 @@ services:
 
   node:
     image: node:16
-    container_name: case-xp
+    container_name: case-xp-front
     tty: true
     stdin_open: true
     command: bash
